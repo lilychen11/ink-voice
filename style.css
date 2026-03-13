@@ -49,7 +49,10 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background: #faf7f3;
+  background:
+    radial-gradient(ellipse 65% 50% at 12% 22%, var(--qljsh-mist) 0%, transparent 68%),
+    radial-gradient(ellipse 52% 44% at 88% 74%, var(--ink-wash-1) 0%, transparent 64%),
+    linear-gradient(180deg, var(--ink-rice) 0%, var(--ink-paper) 100%);
   color: var(--ink-black);
   font-family: var(--font-sans);
   font-weight: 300;
@@ -806,7 +809,11 @@ section { position: relative; z-index: 1; }
 /* ============================================
    FAQ
    ============================================ */
-.faq-section { padding: var(--section-gap) 0; }
+.faq-section {
+  position: relative;
+  overflow: hidden;
+  padding: var(--section-gap) 0;
+}
 .faq-list {
   max-width: 680px;
   margin: 0 auto;
@@ -1423,7 +1430,12 @@ section { position: relative; z-index: 1; }
    FOOTER
    ============================================ */
 .footer {
+  position: relative;
+  overflow: hidden;
   border-top: 1px solid var(--ink-wash-2);
+  background:
+    radial-gradient(ellipse 64% 54% at 14% 22%, rgba(26,20,16,0.055) 0%, transparent 66%),
+    radial-gradient(ellipse 56% 46% at 86% 78%, rgba(122,58,16,0.07) 0%, transparent 62%);
   padding: 48px 0;
 }
 .footer-inner {
@@ -1518,6 +1530,7 @@ section { position: relative; z-index: 1; }
   pointer-events: none;
   z-index: 0;
   opacity: 0;
+  filter: saturate(0.92) brightness(1.02);
   animation: ink-deco-fadein 2.8s ease 1s forwards;
 }
 .qljsh-hero-panorama svg { width: 100%; display: block; }
