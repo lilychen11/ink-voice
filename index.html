@@ -1190,6 +1190,40 @@
         0%, 100% { opacity: 1; }
         50% { opacity: 0; }
       }
+      @keyframes pulseRed {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: .5; transform: scale(.75); }
+      }
+      /* phrase demo: 3-phrase cycle, 20s total, each phrase ~6.7s (33.3%)
+         within each segment: trigger visible first half, result second half */
+      @keyframes phraseP1a {
+        0%{opacity:1}12%{opacity:1}16%{opacity:0}100%{opacity:0}
+      }
+      @keyframes phraseP1b {
+        0%{opacity:0}14%{opacity:0}18%{opacity:1}30%{opacity:1}34%{opacity:0}100%{opacity:0}
+      }
+      @keyframes phraseP2a {
+        0%{opacity:0}33%{opacity:0}33.1%{opacity:1}45%{opacity:1}49%{opacity:0}100%{opacity:0}
+      }
+      @keyframes phraseP2b {
+        0%{opacity:0}47%{opacity:0}51%{opacity:1}63%{opacity:1}67%{opacity:0}100%{opacity:0}
+      }
+      @keyframes phraseP3a {
+        0%{opacity:0}66%{opacity:0}66.1%{opacity:1}78%{opacity:1}82%{opacity:0}100%{opacity:0}
+      }
+      @keyframes phraseP3b {
+        0%{opacity:0}80%{opacity:0}84%{opacity:1}96%{opacity:1}100%{opacity:0}
+      }
+      @keyframes phraseHint1 {
+        0%{opacity:0}14%{opacity:0}18%{opacity:1}30%{opacity:1}34%{opacity:0}100%{opacity:0}
+      }
+      @keyframes phraseHint2 {
+        0%{opacity:0}47%{opacity:0}51%{opacity:1}63%{opacity:1}67%{opacity:0}100%{opacity:0}
+      }
+      @keyframes phraseHint3 {
+        0%{opacity:0}80%{opacity:0}84%{opacity:1}96%{opacity:1}100%{opacity:0}
+      }
+      .phrase-expand-hint { display:none; }
       .dwv-timer {
         font-size: 12px;
         color: #6e6e6e;
@@ -1580,7 +1614,7 @@
           <div class="stat-showcase reveal">
             <div class="ss-icon">⚡</div>
             <div class="ss-num" style="color: #3fb950">快响应</div>
-            <div class="ss-unit">毫秒级转写，零等待感</div>
+            <div class="ss-unit">即时转写，零等待感</div>
           </div>
         </div>
       </div>
@@ -1764,10 +1798,10 @@
         <div class="feat-wrap">
           <div class="feat-text reveal">
             <div class="feat-tag">🎙️ 核心功能</div>
-            <h2 class="feat-title">思维有多快，<br />文字就有多快。</h2>
-            <p class="feat-desc">声音实时转文字，精准落入光标——告别反复切窗口、手动粘贴的低效习惯。</p>
+            <h2 class="feat-title">开口即落字，<br />表达从不滞后。</h2>
+            <p class="feat-desc">声音实时转写，精准落入光标。思路连贯，记录完整，工作流不被打断。</p>
             <ul class="feat-list">
-              <li>实时转写，毫秒级插入光标</li>
+              <li>实时转写，即时落入光标</li>
               <li>精准定位，与键盘输入无缝衔接</li>
               <li>随时唤起，不打断工作流</li>
               <li>波形可视，录音状态一目了然</li>
@@ -1904,13 +1938,13 @@
         <div class="feat-wrap flip">
           <div class="feat-text reveal">
             <div class="feat-tag">🧠 智能增强</div>
-            <h2 class="feat-title">读懂你的语境，<br />而不只是声音。</h2>
-            <p class="feat-desc">结合上下文动态理解，说错自动纠，专词一次录入, 越用越懂你。</p>
+            <h2 class="feat-title">听音知境，<br />理解不是逐字照搬</h2>
+            <p class="feat-desc">结合上下文推断语义，说错了重述一句即可纠正。行业术语一次录入，长期精准。</p>
             <ul class="feat-list">
-              <li>情景感知，上下文驱动智能补全</li>
-              <li>说错直接重述，自动识别最终意图</li>
-              <li>自定义词典，专有名词精准命中</li>
-              <li>快捷短语，一词触发整段展开</li>
+              <li>上下文关联，语境感知识别</li>
+              <li>重述即纠错，无需手动退格</li>
+              <li>自定义词典，行业术语零误差</li>
+              <li>触发词展开，常用内容一声即至</li>
             </ul>
           </div>
           <div class="feat-visual reveal">
@@ -1936,13 +1970,15 @@
                     <span style="color:#86efac">→ 最终输出：</span>「发送邮件给李四」
                   </div>
                 </div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-                  <div>
-                    <div style="font-size:11px;font-weight:600;color:var(--accent);letter-spacing:.06em;margin-bottom:6px">📖 自定义词典</div>
-                    <div style="font-size:12px;color:var(--text-2);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:10px 12px;line-height:1.7">
-                      录入「黑客马拉松」<br/>
-                      <span style="color:#86efac">→</span> 此后精准识别Hackthon
+                <div>
+                  <div style="font-size:11px;font-weight:600;color:var(--accent);letter-spacing:.06em;margin-bottom:8px">📖 自定义词典</div>
+                  <div style="font-size:12px;color:var(--text-2);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 16px;line-height:1.8;display:flex;align-items:center;gap:16px">
+                    <div style="display:flex;align-items:center;gap:8px;flex:1">
+                      <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:3px 10px;font-family:monospace;letter-spacing:.03em;white-space:nowrap">Hackthon</span>
+                      <span style="color:var(--accent);font-size:14px;font-weight:300">→</span>
+                      <span style="background:rgba(134,239,172,.1);border:1px solid rgba(134,239,172,.25);border-radius:6px;padding:3px 10px;color:#86efac;white-space:nowrap">黑客马拉松</span>
                     </div>
+                    <div style="color:var(--text-3);font-size:11px;white-space:nowrap">此后精准识别 ✓</div>
                   </div>
                 </div>
               </div>
@@ -1961,7 +1997,7 @@
             <h2 class="feat-title">口语变书面语，<br />多种风格一键切。</h2>
             <p class="feat-desc">停止录音后 GPT 自动整理措辞，流式实时输出。</p>
             <ul class="feat-list">
-              <li>五种内置风格：默认 / 简洁 / 详尽 / 正式 / 轻松</li>
+              <li>多种内置风格：默认 / 简洁 / 详尽 / 正式 / 轻松</li>
               <li>支持自定义 Prompt</li>
               <li>集成翻译，口述自动译为目标语言</li>
               <li>可随时关闭，切换纯转录模式</li>
@@ -2154,13 +2190,13 @@
         <div class="feat-wrap">
           <div class="feat-text reveal">
             <div class="feat-tag">⌘ 命令模式</div>
-            <h2 class="feat-title">语音也可以是命令，<br />大胆开口，我们来执行。</h2>
-            <p class="feat-desc">无需记忆任何快捷键，用自然语言表达意图，言墨理解语义并即时执行。</p>
+            <h2 class="feat-title">识别不止于转写，<br />更是精准的操作指令。</h2>
+            <p class="feat-desc">言墨识别语音，理解意图，一句话即可触发排版、检索、插入——无需鼠标，无需快捷键。</p>
             <ul class="feat-list">
-              <li>说"整理成表格"，自动排版为 Markdown 表格</li>
-              <li>说"查一句李白的诗"，检索匹配后直接插入</li>
-              <li>支持诗词、成语、名言等多类内容</li>
-              <li>语义驱动，口语随意说也能准确触发</li>
+              <li>说"整理成表格"，Markdown 即刻生成</li>
+              <li>说"来一句李白"，匹配诗句直接插入</li>
+              <li>成语、名言、术语，说出类型即可召唤</li>
+              <li>口语照单全收，不用字斟句酌</li>
             </ul>
           </div>
           <div class="feat-visual reveal">
@@ -2206,11 +2242,11 @@
         <div class="feat-wrap flip">
           <div class="feat-text reveal">
             <div class="feat-tag">⚡ 快捷短语</div>
-            <h2 class="feat-title">一个词，<br />也可以对应到具体的信息。</h2>
-            <p class="feat-desc">预设常用表达与专有名词，说出触发词即刻展开——减少重复输入，也让识别更准。</p>
+            <h2 class="feat-title">一词既出，<br />满屏皆至。</h2>
+            <p class="feat-desc">将惯用语、签名、专业表述凝练为一个触发词。轻声一唤，完整内容即刻铺陈。</p>
             <ul class="feat-list">
-              <li>触发词 → 替换文本，无条数上限</li>
-              <li>自动提升对应词汇识别准确率</li>
+              <li>自定义触发词与替换内容，数量不限</li>
+              <li>触发词自动纳入识别词库，转写更精准</li>
             </ul>
           </div>
           <div class="feat-visual reveal">
@@ -2283,7 +2319,51 @@
                       + 新增
                     </div>
                   </div>
+                  <!-- Live transcription demo: 3 phrases, each in its own sentence -->
+                  <div style="margin:0 0 10px;border-radius:9px;overflow:hidden;border:1px solid rgba(255,255,255,.08)">
+                    <div style="font-size:10px;color:var(--text-3);padding:6px 10px 5px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:5px">
+                      <span style="width:6px;height:6px;border-radius:50%;background:#f87171;display:inline-block;animation:pulseRed 1.4s ease-in-out infinite"></span>
+                      实时转写中…
+                    </div>
+                    <div style="padding:10px 12px;font-size:12px;line-height:1.6;color:rgba(255,255,255,.85);background:rgba(0,0,0,.55);min-height:52px;position:relative">
+                      <!-- Segment 1: 问好 -->
+                      <span style="animation:phraseP1a 18s linear infinite">
+                        下午好，我想发一封邮件，<span style="color:#fbbf24;background:rgba(251,191,36,.12);border-radius:3px;padding:0 2px">问好</span><span style="display:inline-block;width:1.5px;height:12px;background:rgba(255,255,255,.6);vertical-align:middle;margin-left:1px;animation:blink 1s step-end infinite"></span>
+                      </span>
+                      <span style="animation:phraseP1b 18s linear infinite;position:absolute;left:12px;top:10px;right:12px;opacity:0">
+                        下午好，我想发一封邮件，<span style="color:#86efac">您好，感谢您的来信。请问有什么我可以帮助您的？</span><span style="display:inline-block;width:1.5px;height:12px;background:rgba(255,255,255,.6);vertical-align:middle;margin-left:1px;animation:blink 1s step-end infinite"></span>
+                      </span>
+                      <!-- Segment 2: 我的个人邮箱 -->
+                      <span style="animation:phraseP2a 18s linear infinite;position:absolute;left:12px;top:10px;right:12px;opacity:0">
+                        好的，您可以把文件发到<span style="color:#fbbf24;background:rgba(251,191,36,.12);border-radius:3px;padding:0 2px">我的个人邮箱</span><span style="display:inline-block;width:1.5px;height:12px;background:rgba(255,255,255,.6);vertical-align:middle;margin-left:1px;animation:blink 1s step-end infinite"></span>
+                      </span>
+                      <span style="animation:phraseP2b 18s linear infinite;position:absolute;left:12px;top:10px;right:12px;opacity:0">
+                        好的，您可以把文件发到<span style="color:#86efac">Personal@outlook.com</span><span style="display:inline-block;width:1.5px;height:12px;background:rgba(255,255,255,.6);vertical-align:middle;margin-left:1px;animation:blink 1s step-end infinite"></span>
+                      </span>
+                      <!-- Segment 3: 我们的地址 -->
+                      <span style="animation:phraseP3a 18s linear infinite;position:absolute;left:12px;top:10px;right:12px;opacity:0">
+                        欢迎来访，<span style="color:#fbbf24;background:rgba(251,191,36,.12);border-radius:3px;padding:0 2px">我们的地址</span>在<span style="display:inline-block;width:1.5px;height:12px;background:rgba(255,255,255,.6);vertical-align:middle;margin-left:1px;animation:blink 1s step-end infinite"></span>
+                      </span>
+                      <span style="animation:phraseP3b 18s linear infinite;position:absolute;left:12px;top:10px;right:12px;opacity:0">
+                        欢迎来访，<span style="color:#86efac">北京市海淀区丹棱街5号</span>，期待您的到来！<span style="display:inline-block;width:1.5px;height:12px;background:rgba(255,255,255,.6);vertical-align:middle;margin-left:1px;animation:blink 1s step-end infinite"></span>
+                      </span>
+                    </div>
+                    <div style="font-size:10px;padding:4px 10px;border-top:1px solid rgba(134,239,172,.12);position:relative;min-height:22px;background:rgba(134,239,172,.04)">
+                      <span style="position:absolute;left:10px;top:4px;color:rgba(134,239,172,.7);animation:phraseHint1 18s linear infinite;opacity:0">⚡ 触发词「问好」已展开</span>
+                      <span style="position:absolute;left:10px;top:4px;color:rgba(134,239,172,.7);animation:phraseHint2 18s linear infinite;opacity:0">⚡ 触发词「我的个人邮箱」已展开</span>
+                      <span style="position:absolute;left:10px;top:4px;color:rgba(134,239,172,.7);animation:phraseHint3 18s linear infinite;opacity:0">⚡ 触发词「我们的地址」已展开</span>
+                    </div>
+                  </div>
                   <div class="phrase-body">
+                    <div class="phrase-row">
+                      <div class="phrase-trigger">
+                        <span class="pt-icon">⚡</span>
+                        <span class="pt-name">问好</span>
+                        <span class="pt-actions">✏ 🗑</span>
+                      </div>
+                      <div class="phrase-arrow">→</div>
+                      <div class="phrase-result">您好，感谢您的来信。请问有什么我可以帮助您的？ <span style="color: #bbb; font-size: 10px">✏</span></div>
+                    </div>
                     <div class="phrase-row">
                       <div class="phrase-trigger">
                         <span class="pt-icon">⚡</span>
@@ -2307,7 +2387,7 @@
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
                     </svg>
-                    共 2 个快捷短语
+                    共 3 个快捷短语
                     <div class="vol-slider" style="margin-left: auto">
                       <svg
                         width="12"
