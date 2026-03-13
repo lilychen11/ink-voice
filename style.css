@@ -1198,6 +1198,8 @@ section { position: relative; z-index: 1; }
   color: var(--ink-black);
   margin: 0;
   line-height: 1.25;
+  text-wrap: balance;
+  line-break: strict;
 }
 .ovr-app-desc {
   font-size: 1rem; color: var(--ink-soft);
