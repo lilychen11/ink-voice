@@ -89,7 +89,7 @@
           radial-gradient(ellipse 65% 50% at 80% 30%, rgba(30,77,122,0.075) 0%, transparent 65%),
           radial-gradient(ellipse 45% 45% at 15% 70%, rgba(42,92,58,0.045) 0%, transparent 60%);
       }
-      /* 短语 #phrases 暖金晕 */
+      /* 快捷词 #phrases 暖金晕 */
       #phrases {
         background:
           radial-gradient(ellipse 60% 55% at 20% 35%, rgba(122,58,16,0.06) 0%, transparent 60%),
@@ -176,6 +176,10 @@
         width: 100%;
         max-width: 600px;
       }
+      #platform .feat-visual > div {
+        width: 100%;
+        max-width: 520px;
+      }
       #yanmo .app-window,
       #history .app-window,
       #phrases .app-window {
@@ -201,10 +205,11 @@
       .feat-title {
         font-size: clamp(24px, 3vw, 38px);
         font-weight: 800;
-        line-height: 1.1;
+        line-height: 1.28;
         letter-spacing: -0.025em;
         margin-bottom: 18px;
         font-family: var(--serif);
+        text-wrap: balance;
       }
       .feat-desc {
         font-size: 15px;
@@ -623,26 +628,57 @@
 
       /* PHRASE MOCKUP */
       .phrase-body {
-        padding: 8px 16px;
-        flex: 1;
+        padding: 6px 16px;
+        flex: 0 0 auto;
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 6px;
       }
       .phrase-row {
         display: grid;
-        grid-template-columns: 1fr 24px 1fr;
+        grid-template-columns: 1fr 20px 1fr;
         align-items: center;
-        gap: 8px;
+        gap: 6px;
+      }
+      .phrase-row.demo-step {
+        opacity: 1;
+        transform: none;
+        animation: none;
+      }
+      .phrase-row.demo-step.s1,
+      .phrase-row.demo-step.s2,
+      .phrase-row.demo-step.s3 {
+        animation: none;
+      }
+      .phrase-usage {
+        margin-top: auto;
+        padding: 10px 12px;
+        border-radius: 9px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.08);
+      }
+      .phrase-usage-title {
+        font-size: 10px;
+        color: #d9c19e;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .phrase-usage-list {
+        margin: 0;
+        padding-left: 14px;
+        font-size: 11px;
+        color: #d6d6d6;
+        line-height: 1.55;
       }
       .phrase-trigger {
-        padding: 9px 12px;
+        padding: 7px 10px;
         background: white;
         border: 1px solid #e8e8f0;
         border-radius: 8px;
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 7px;
       }
       .phrase-trigger .pt-icon {
         color: var(--accent);
@@ -660,22 +696,22 @@
       }
       .phrase-arrow {
         color: #aaa;
-        font-size: 14px;
+        font-size: 12px;
         text-align: center;
       }
       .phrase-result {
-        padding: 9px 12px;
+        padding: 7px 10px;
         background: white;
         border: 1px solid #e8e8f0;
         border-radius: 8px;
-        font-size: 12px;
+        font-size: 11px;
         color: #333;
         display: flex;
         align-items: center;
         justify-content: space-between;
       }
       .phrase-footer {
-        padding: 10px 16px;
+        padding: 8px 16px;
         border-top: 1px solid #f0f0f2;
         display: flex;
         align-items: center;
@@ -704,6 +740,18 @@
         background: var(--blue);
         border-radius: 2px;
         width: 100%;
+      }
+      @keyframes phrase-step-1 {
+        0%, 12% { opacity: 0; transform: translateY(6px); }
+        16%, 100% { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes phrase-step-2 {
+        0%, 28% { opacity: 0; transform: translateY(6px); }
+        32%, 100% { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes phrase-step-3 {
+        0%, 44% { opacity: 0; transform: translateY(6px); }
+        48%, 100% { opacity: 1; transform: translateY(0); }
       }
 
       /* STYLE PILLS */
@@ -1040,8 +1088,12 @@
       .btn-download-platform {
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 10px;
-        padding: 14px 28px;
+        width: 220px;
+        height: 52px;
+        padding: 0 20px;
+        box-sizing: border-box;
         border-radius: 10px;
         border: none;
         background: #0078d7;
@@ -1405,6 +1457,76 @@
         0%, 100% { opacity: 1; transform: scale(1); }
         50% { opacity: .5; transform: scale(.75); }
       }
+      .rec-live-text {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-height: 66px;
+      }
+      .rec-live-line {
+        opacity: 0;
+        transform: translateY(4px);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .rec-live-line.raw { animation: rec-append-1 12s ease-in-out infinite; }
+      .rec-live-line.punc { color: rgba(255,255,255,0.72); animation: rec-append-2 12s ease-in-out infinite; }
+      .rec-live-line.polish { color: rgba(201,168,124,0.92); animation: rec-append-3 12s ease-in-out infinite; }
+      .rec-line-tag {
+        display: inline-block;
+        font-size: 10px;
+        line-height: 1;
+        border-radius: 999px;
+        padding: 3px 7px;
+        margin-right: 6px;
+        letter-spacing: 0.04em;
+        font-style: normal;
+      }
+      .rec-live-line.raw .rec-line-tag { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); }
+      .rec-live-line.punc .rec-line-tag { background: rgba(255,255,255,0.14); color: rgba(255,255,255,0.82); }
+      .rec-live-line.polish .rec-line-tag { background: rgba(201,168,124,0.22); color: rgba(214,184,146,0.96); }
+      .rec-result-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .rec-result-line {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .rec-result-tag {
+        font-size: 10px;
+        line-height: 1;
+        border-radius: 999px;
+        padding: 4px 8px;
+        margin-top: 2px;
+        flex-shrink: 0;
+      }
+      .rec-result-line.rec .rec-result-tag {
+        background: rgba(26,20,16,0.08);
+        color: var(--text-2);
+      }
+      .rec-result-line.polish .rec-result-tag {
+        background: rgba(201,168,124,0.2);
+        color: var(--accent);
+      }
+      .rec-result-text {
+        flex: 1;
+      }
+      @keyframes rec-append-1 {
+        0%, 5% { opacity: 0; transform: translateY(4px); }
+        10%, 100% { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes rec-append-2 {
+        0%, 34% { opacity: 0; transform: translateY(4px); }
+        40%, 100% { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes rec-append-3 {
+        0%, 64% { opacity: 0; transform: translateY(4px); }
+        70%, 100% { opacity: 1; transform: translateY(0); }
+      }
       /* phrase demo: 3-phrase cycle, 20s total, each phrase ~6.7s (33.3%)
          within each segment: trigger visible first half, result second half */
       @keyframes phraseP1a {
@@ -1564,8 +1686,8 @@
       }
       .vsc-body {
         display: grid;
-        grid-template-columns: 3fr 2fr;
-        gap: 40px;
+        grid-template-columns: minmax(0, 3fr) minmax(260px, 1fr);
+        gap: 32px;
         align-items: stretch;
       }
       .vsc-editor-window {
@@ -1573,6 +1695,12 @@
         border-radius: 12px;
         overflow: hidden;
         box-shadow: 0 24px 64px rgba(0,0,0,0.28), 0 0 0 1px rgba(255,255,255,0.06);
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        height: 100%;
       }
       .vsc-titlebar {
         height: 33px;
@@ -1596,7 +1724,8 @@
       }
       .vsc-editor-body {
         display: flex;
-
+        flex: 1;
+        min-height: 0;
       }
       .vsc-activity-bar {
         width: 48px;
@@ -1624,7 +1753,7 @@
       .vsc-ab-icon svg, .vsc-ab-icon img { width: 20px; height: 20px; }
       .vsc-ab-spacer { flex: 1; }
       .vsc-panel {
-        width: 220px;
+        width: 252px;
         background: #252526;
         border-right: 1px solid rgba(255,255,255,0.04);
         display: flex;
@@ -1644,21 +1773,21 @@
       }
       .vsc-panel-body {
         flex: 1;
-        padding: 12px 10px;
+        padding: 10px 9px;
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 6px;
         overflow: hidden;
       }
       .vsc-mic-row {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 10px 0 6px;
+        padding: 6px 0 3px;
       }
       .vsc-mic-btn {
-        width: 48px;
-        height: 48px;
+        width: 42px;
+        height: 42px;
         border-radius: 50%;
         background: #c04040;
         display: flex;
@@ -1667,7 +1796,7 @@
         box-shadow: 0 0 0 6px rgba(192,64,64,0.18), 0 4px 16px rgba(192,64,64,0.4);
         animation: vsc-mic-pulse 2s ease-in-out infinite;
       }
-      .vsc-mic-btn svg { width: 20px; height: 20px; color: white; }
+      .vsc-mic-btn svg { width: 18px; height: 18px; color: white; }
       @keyframes vsc-mic-pulse {
         0%, 100% { box-shadow: 0 0 0 6px rgba(192,64,64,0.18), 0 4px 16px rgba(192,64,64,0.4); }
         50% { box-shadow: 0 0 0 12px rgba(192,64,64,0.06), 0 4px 24px rgba(192,64,64,0.5); }
@@ -1694,7 +1823,7 @@
         display: flex;
         align-items: center;
         gap: 2px;
-        height: 24px;
+        height: 18px;
         justify-content: center;
       }
       .vsc-wave-bar {
@@ -1716,16 +1845,83 @@
         background: rgba(255,255,255,0.04);
         border: 1px solid rgba(255,255,255,0.08);
         border-radius: 8px;
-        padding: 9px 11px;
+        padding: 8px 10px;
         font-size: 11.5px;
         color: #c8c8c8;
-        line-height: 1.65;
+        line-height: 1.52;
         font-family: var(--sans);
+        height: 120px;
+        min-height: 120px;
+        overflow-y: auto;
+        overflow-x: hidden;
       }
       .vsc-box.green {
         background: rgba(63,185,80,0.07);
         border-color: rgba(63,185,80,0.22);
         color: #7ee787;
+      }
+      .vsc-panel-body > .vsc-box {
+        flex: 0 0 auto;
+        min-height: 0;
+        overflow-y: auto;
+      }
+      .vsc-panel-body > .vsc-box:first-of-type {
+        height: calc(43% - 3px);
+      }
+      .vsc-panel-body > .vsc-box.green {
+        height: calc(53% - 3px);
+      }
+      .vsc-box::-webkit-scrollbar {
+        width: 10px;
+      }
+      .vsc-box::-webkit-scrollbar-track {
+        background: rgba(255,255,255,0.03);
+        border-left: 1px solid rgba(255,255,255,0.04);
+      }
+      .vsc-box::-webkit-scrollbar-thumb {
+        background: rgba(121,121,121,0.75);
+        border-radius: 10px;
+        border: 2px solid rgba(37,37,38,0.92);
+      }
+      .vsc-box::-webkit-scrollbar-thumb:hover {
+        background: rgba(148,148,148,0.82);
+      }
+      .vsc-box {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(121,121,121,0.78) rgba(255,255,255,0.03);
+      }
+      .vsc-box-content.demo-step {
+        display: none;
+        opacity: 0;
+        transform: translateY(4px);
+        width: 100%;
+        max-width: 100%;
+        margin: 0 0 4px;
+        text-align: left;
+      }
+      .vsc-body.visible .vsc-box-content.demo-step.raw1 {
+        display: block;
+        animation: vsc-box-keep-in 1.1s ease-out forwards;
+        animation-delay: 1s;
+      }
+      .vsc-body.visible .vsc-box-content.demo-step.polish1 {
+        display: block;
+        animation: vsc-box-keep-in 1.1s ease-out forwards;
+        animation-delay: 4s;
+      }
+      .vsc-body.visible .vsc-box-content.demo-step.raw2 {
+        display: block;
+        animation: vsc-box-keep-in 1.1s ease-out forwards;
+        animation-delay: 10s;
+      }
+      .vsc-body.visible .vsc-box-content.demo-step.polish2 {
+        display: block;
+        animation: vsc-box-keep-in 1.1s ease-out forwards;
+        animation-delay: 13s;
+      }
+      @keyframes vsc-box-keep-in {
+        from { opacity: 0; transform: translateY(4px); }
+        to { opacity: 1; transform: translateY(0); }
       }
       .vsc-box-label {
         font-size: 9px;
@@ -1745,18 +1941,51 @@
         animation: vsc-cur 1s step-end infinite;
       }
       @keyframes vsc-cur { 0%,100%{opacity:1} 50%{opacity:0} }
-      .vsc-insert-hint {
-        font-size: 10px;
-        color: #6e6e6e;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 4px;
-        font-family: var(--sans);
+      .vsc-code-line.vsc-inserted.demo-step {
+        opacity: 0;
+        max-height: 0;
+        transform: translateY(-2px);
+        margin: 0;
+        padding-left: 0;
+        border-left-color: transparent;
+        overflow: hidden;
+      }
+      .vsc-body.visible .vsc-code-line.vsc-inserted.demo-step.s1 {
+        animation: vsc-insert-keep-in 1.1s ease-out forwards;
+        animation-delay: 6.9s;
+      }
+      .vsc-body.visible .vsc-code-line.vsc-inserted.demo-step.s1b {
+        animation: vsc-insert-keep-in 1.1s ease-out forwards;
+        animation-delay: 8.2s;
+      }
+      .vsc-body.visible .vsc-code-line.vsc-inserted.demo-step.s2 {
+        animation: vsc-insert-keep-in 1.1s ease-out forwards;
+        animation-delay: 16.2s;
+      }
+      @keyframes vsc-insert-keep-in {
+        from { opacity: 0; max-height: 0; transform: translateY(-2px); padding-left: 0; border-left-color: transparent; }
+        to { opacity: 1; max-height: 140px; transform: translateY(0); padding-left: 4px; border-left-color: #3fb950; }
+      }
+      @keyframes vsc-step-1 {
+        0%, 12% { opacity: 0; transform: translateY(6px); }
+        16%, 30% { opacity: 1; transform: translateY(0); }
+        34%, 100% { opacity: 0; transform: translateY(6px); }
+      }
+      @keyframes vsc-step-2 {
+        0%, 32% { opacity: 0; transform: translateY(6px); }
+        36%, 50% { opacity: 1; transform: translateY(0); }
+        54%, 100% { opacity: 0; transform: translateY(6px); }
+      }
+      @keyframes vsc-step-3 {
+        0%, 52% { opacity: 0; transform: translateY(6px); }
+        56%, 70% { opacity: 1; transform: translateY(0); }
+        74%, 100% { opacity: 0; transform: translateY(6px); }
       }
       .vsc-editor-area {
-        flex: 1;
+        flex: 1 1 auto;
+        width: auto;
+        max-width: 100%;
+        min-width: 0;
         display: flex;
         flex-direction: column;
         overflow: hidden;
@@ -1773,7 +2002,7 @@
         color: #9d9d9d;
         border-right: 1px solid rgba(255,255,255,0.04);
         white-space: nowrap;
-        cursor: default;
+        cursor: pointer;
         font-family: var(--sans);
       }
       .vsc-tab.active { background: #1e1e1e; color: #cccccc; border-top: 1px solid #007ACC; }
@@ -1785,9 +2014,27 @@
         line-height: 1.75;
         overflow: hidden;
       }
-      .vsc-code-line { display: flex; align-items: baseline; }
-      .vsc-ln { width: 26px; color: #4a4a4a; text-align: right; margin-right: 14px; flex-shrink: 0; font-size: 11px; }
-      .cl-cmt { color: #6a9955; }
+      .vsc-code-view { display: none; }
+      .vsc-code-view.active { display: block; min-width: 0; }
+      .vsc-code-line {
+        display: flex;
+        align-items: flex-start;
+        white-space: normal;
+        flex-wrap: nowrap;
+        min-width: 0;
+      }
+      .vsc-ln { width: 26px; color: #4a4a4a; text-align: right; margin-right: 14px; flex-shrink: 0; font-size: 11px; line-height: 1.75; }
+      .vsc-code-line > span:not(.vsc-ln) {
+        min-width: 0;
+        max-width: 100%;
+      }
+      .cl-cmt {
+        color: #6a9955;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        line-height: 1.65;
+      }
       .cl-kw  { color: #569cd6; }
       .cl-fn  { color: #dcdcaa; }
       .cl-str { color: #ce9178; }
@@ -1825,20 +2072,23 @@
 
       /* Feature cards */
       .vsc-features {
-        display: grid;
-        grid-template-rows: repeat(2, 1fr);
-        gap: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
         padding-top: 6px;
+        align-self: stretch;
+        min-height: 0;
         height: 100%;
       }
       .vsc-feat-card {
         background: var(--card-bg);
         border: 1px solid var(--border);
         border-radius: 14px;
-        padding: 22px 24px;
+        padding: 16px 18px;
         display: flex;
         flex-direction: column;
         transition: border-color 0.2s, transform 0.2s;
+        min-height: 0;
       }
       .vsc-feat-card:hover { border-color: var(--border-2); transform: translateX(3px); }
       .vsc-feat-card.vibe {
@@ -1847,9 +2097,95 @@
         background: linear-gradient(135deg, rgba(91,122,193,0.16) 0%, rgba(136,160,221,0.10) 100%);
       }
       .vsc-feat-card.vibe:hover { border-color: rgba(91,122,193,0.72); }
-      .vfc-icon { font-size: 20px; margin-bottom: 8px; }
-      .vfc-title { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
-      .vfc-desc { font-size: 13px; color: var(--text-2); line-height: 1.7; }
+      .vfc-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        color: #1f6feb;
+        background: linear-gradient(135deg, rgba(31,111,235,0.22), rgba(56,139,253,0.12));
+        box-shadow: inset 0 0 0 1px rgba(31,111,235,0.32);
+      }
+      .vsc-feat-card.vibe .vfc-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        color: white;
+        background: linear-gradient(135deg, #5b7ac1, #7a95d6);
+        box-shadow: 0 0 0 6px rgba(91,122,193,0.18), 0 4px 16px rgba(91,122,193,0.36);
+      }
+      .vfc-icon img {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+        display: block;
+      }
+      .vfc-icon svg {
+        width: 20px;
+        height: 20px;
+        display: block;
+      }
+      .vfc-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+      .vfc-desc { font-size: 12px; color: var(--text-2); line-height: 1.6; }
+      .vsc-feat-card.sync {
+        display: flex;
+      }
+      .vfc-sync-head {
+        padding: 12px 14px;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        background: rgba(126,231,135,0.08);
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #9ee5aa;
+        font-weight: 700;
+      }
+      .vfc-sync-body {
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .vfc-sync-item {
+        padding: 8px 9px;
+        border-radius: 8px;
+        border: 1px solid rgba(255,255,255,0.09);
+        background: rgba(255,255,255,0.03);
+      }
+      .vfc-sync-item .k {
+        display: block;
+        font-size: 10px;
+        color: #9aa0a6;
+        margin-bottom: 2px;
+      }
+      .vfc-sync-item .t {
+        display: block;
+        font-size: 11px;
+        color: #dce3ef;
+        line-height: 1.45;
+      }
+      .vfc-sync-item .r {
+        display: block;
+        margin-top: 2px;
+        font-size: 11px;
+        color: #7ee787;
+        line-height: 1.45;
+      }
+      .vfc-sync-item.demo-step {
+        opacity: 0;
+        transform: translateY(6px);
+        animation: vfc-sync-keep-in 1.1s ease-out forwards;
+      }
+      .vsc-body.visible .vfc-sync-item.demo-step.s1 { animation-delay: 1s; }
+      .vsc-body.visible .vfc-sync-item.demo-step.s2 { animation-delay: 4.6s; }
+      .vsc-body.visible .vfc-sync-item.demo-step.s3 { animation-delay: 7.6s; }
+      @keyframes vfc-sync-keep-in {
+        from { opacity: 0; transform: translateY(6px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
       .vfc-vibe-badge {
         display: inline-flex;
         align-items: center;
@@ -1868,45 +2204,48 @@
 
       /* Install strip */
       .vsc-install-strip {
-        margin-top: 34px;
+        margin-top: auto;
         background: var(--card-bg);
         border: 1px solid var(--border-2);
-        border-radius: 16px;
-        padding: 22px 28px;
+        border-radius: 14px;
+        padding: 16px;
         display: flex;
-        align-items: center;
-        gap: 22px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
         box-shadow: 0 4px 24px rgba(26,20,16,0.06);
+        position: relative;
       }
       .vis-icon-wrap {
-        width: 60px;
-        height: 60px;
-        background: linear-gradient(135deg, rgba(200,100,20,0.25), rgba(240,140,30,0.15));
+        width: 52px;
+        height: 52px;
+        background: linear-gradient(135deg, rgba(31,111,235,0.2), rgba(56,139,253,0.12));
         border-radius: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
+        box-shadow: inset 0 0 0 1px rgba(31,111,235,0.28);
       }
       .vis-text { flex: 1; }
-      .vis-title { font-size: 17px; font-weight: 700; margin-bottom: 5px; }
-      .vis-desc { font-size: 13px; color: var(--text-2); line-height: 1.65; }
-      .vis-actions { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; flex-shrink: 0; }
+      .vis-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+      .vis-desc { font-size: 12px; color: var(--text-2); line-height: 1.6; }
+      .vis-actions { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; flex-shrink: 0; width: 100%; }
       .vis-btn {
         display: inline-flex;
         align-items: center;
         gap: 7px;
-        padding: 11px 22px;
-        background: var(--accent);
+        padding: 10px 14px;
+        background: #0078d4;
         color: white;
         border-radius: 8px;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
         text-decoration: none;
         transition: background 0.2s, transform 0.15s;
         white-space: nowrap;
       }
-      .vis-btn:hover { background: var(--accent-lt); transform: translateY(-2px); }
+      .vis-btn:hover { background: #0b86eb; transform: translateY(-2px); }
       .vis-note { font-size: 11px; color: var(--text-2); }
       @media (max-width: 900px) {
         .overview-section,
@@ -1919,7 +2258,8 @@
           display: block;
         }
         .vsc-body { grid-template-columns: 1fr; }
-        .vsc-panel { width: 180px; }
+        .vsc-features { height: auto; }
+        .vsc-panel { width: 220px; }
         .vsc-install-strip { flex-direction: column; align-items: flex-start; }
         .vis-actions { align-items: flex-start; }
       }
@@ -1971,11 +2311,12 @@
           <span class="logo-text">言墨</span>
         </a>
         <ul class="nav-links">
-          <li><a href="#overview">功能</a></li>
-          <li><a href="#vscode">桌面应用</a></li>
-          <li><a href="#vscode-ext">VS Code</a></li>
-          <li><a href="#recording">界面</a></li>
-          <li><a href="#privacy">隐私</a></li>
+          <li><a href="#hero">主页</a></li>
+          <li><a href="#overview">功能概览</a></li>
+          <li><a href="#demo">应用演示</a></li>
+          <li><a href="#vscode-ext">扩展支持</a></li>
+          <li><a href="#recording">详情介绍</a></li>
+          <li><a href="#faq">常见问题</a></li>
         </ul>
       </div>
     </nav>
@@ -1983,7 +2324,7 @@
     <!-- Hero -->
     <section class="hero" id="hero">
       <div class="hero-inner">
-        <div class="hero-badge reveal">Azure Speech · 自动润色 · 智能语音输入</div>
+        <div class="hero-badge reveal">Azure Speech · 自动润色 · AI 语音输入</div>
         <h1 class="hero-title reveal">
           <span class="line">落笔生花</span>
           <span class="line ink-accent">出言成章</span>
@@ -1995,6 +2336,10 @@
           <a href="#" class="btn-download-platform">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
             下载 Windows 版
+          </a>
+          <a href="#vscode-ext" class="btn-download-platform" style="background:#007acc;">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.6 1 7.1 11l-4.6-3.5L0 8.8l4.9 4.5L0 17.8l2.5 1.3L7 15.6 17.6 23 24 20.4V3.6L17.6 1zm.1 4.1v13.8l-6.5-5.6 6.5-8.2z"/></svg>
+            下载 VS Code 扩展
           </a>
           <a href="#" class="btn-download-platform" style="background:#005ea6;">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>
@@ -2223,12 +2568,12 @@
           <div class="ovr-card reveal">
             <div class="oc-icon">✨</div>
             <h3 class="oc-title">AI 润色</h3>
-            <p class="oc-desc">对口语润色为书面体，流式输出，多种风格可选。</p>
+            <p class="oc-desc">口语自动润色为书面语，多种风格可选。</p>
           </div>
           <div class="ovr-card reveal">
             <div class="oc-icon">🎯</div>
             <h3 class="oc-title">场景适配</h3>
-            <p class="oc-desc">根据应用场景动态增强识别结果</p>
+            <p class="oc-desc">根据应用场景动态增强识别结果，集成多种agent辅助各类输入需求</p>
           </div>
           <div class="ovr-card reveal">
             <div class="oc-icon">📟</div>
@@ -2238,7 +2583,7 @@
           <div class="ovr-card reveal">
             <div class="oc-icon">🌐</div>
             <h3 class="oc-title">实时翻译</h3>
-            <p class="oc-desc">识别同步翻译，中英日韩多语言自由切换。</p>
+            <p class="oc-desc">识别同步翻译，各国语言自由切换，翻译风格可配置。</p>
           </div>
           <div class="ovr-card reveal">
             <div class="oc-icon">⚡</div>
@@ -2254,12 +2599,12 @@
           </div>
           <div class="stat-showcase reveal">
             <div class="ss-icon">🤖</div>
-            <div class="ss-num" style="color: #38bdf8">高智能</div>
+            <div class="ss-num" style="color: #2dd4bf">高智能</div>
             <div class="ss-unit">语音驱动 vibe coding</div>
           </div>
           <div class="stat-showcase reveal">
             <div class="ss-icon">🌐</div>
-            <div class="ss-num" style="color: #2dd4bf">多语言</div>
+            <div class="ss-num" style="color: #38bdf8">多语言</div>
             <div class="ss-unit">自由切切换不同语言</div>
           </div>
           <div class="stat-showcase reveal">
@@ -2282,6 +2627,9 @@
       <div class="demo-container reveal">
         <p class="demo-eyebrow">产品演示</p>
         <h2 class="demo-heading">看 言墨 如何工作</h2>
+        <div style="display:flex;justify-content:center;margin:-8px 0 18px;">
+          <a href="#hero" class="btn-ghost" style="display:inline-flex;align-items:center;padding:8px 14px;font-size:13px;">← 回到主页</a>
+        </div>
         <div class="demo-video-frame">
           <div class="demo-video-wrap" style="position:relative;">
             <video id="demoVideo" src="yanmo.mp4" muted playsinline></video>
@@ -2411,7 +2759,7 @@
       <div class="container">
         <div class="vsc-header reveal">
           <div class="vsc-tag">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 2L8.9 12 2 7.5 0 9l3.3 3L0 15l2 1.5 6.9-4.5 8.6 10L24 20V4L17.5 2z"/></svg>
+            <img src="pic/vsicon.webp" alt="VS Code" width="14" height="14" />
             VS Code Extension &#xB7; &#x5DF2;&#x4E0A;&#x67B6; Marketplace
           </div>
           <h2 class="vsc-title">&#x4EE3;&#x7801;&#x7F16;&#x8F91;&#x5668;&#x91CC;&#x7684;<br />&#x8BED;&#x97F3;&#x8F93;&#x5165;&#x52A9;&#x624B;</h2>
@@ -2425,7 +2773,7 @@
               <span class="vsc-dot vsc-dot-r"></span>
               <span class="vsc-dot vsc-dot-y"></span>
               <span class="vsc-dot vsc-dot-g"></span>
-              <span class="vsc-winlabel">utils.ts &#x2014; ink-voice &#x2014; Visual Studio Code</span>
+              <span class="vsc-winlabel">parser.py &#x2014; yanmo &#x2014; Visual Studio Code</span>
             </div>
             <div class="vsc-editor-body">
               <!-- Activity bar -->
@@ -2466,15 +2814,13 @@
                   </div>
                   <div class="vsc-box">
                     <div class="vsc-box-label" style="color:#9d9d9d;">&#x53E3;&#x8BED;&#x539F;&#x6587;</div>
-                    &#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x89E3;&#x6790;&#x7528;&#x6237;&#x8F93;&#x5165;&#xFF0C;&#x628A;&#x91CC;&#x9762;&#x7684;&#x5B57;&#x6BB5;&#x63D0;&#x53D6;&#x51FA;&#x6765;&#x8FD4;&#x56DE;<span class="vsc-cursor"></span>
+                    <div class="vsc-box-content demo-step raw1">&#x7ED9; parse_input &#x548C; format_table &#x90FD;&#x8865;&#x4E0A;&#x8BE6;&#x7EC6;&#x6CE8;&#x91CA;</div>
+                    <div class="vsc-box-content demo-step raw2">&#x52A0;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x6253;&#x5370;&#x6570;&#x7EC4;&#x4E2D;&#x7684;&#x6BCF;&#x4E00;&#x4E2A;&#x5143;&#x7D20;</div>
                   </div>
                   <div class="vsc-box green">
                     <div class="vsc-box-label" style="color:#7ee787;">AI &#x6DA6;&#x8272;</div>
-                    &#x89E3;&#x6790;&#x7528;&#x6237;&#x8F93;&#x5165;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x63D0;&#x53D6;&#x7ED3;&#x6784;&#x5316;&#x5B57;&#x6BB5;&#x5E76;&#x8FD4;&#x56DE;&#x5BF9;&#x8C61;&#x3002;
-                  </div>
-                  <div class="vsc-insert-hint">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-                    &#x81EA;&#x52A8;&#x63D2;&#x5165;&#x5149;&#x6807;&#x4F4D;&#x7F6E;
+                    <div class="vsc-box-content demo-step polish1">&#x4E3A; parse_input &#x4E0E; format_table &#x5206;&#x522B;&#x8865;&#x5168;&#x8BE6;&#x7EC6;&#x6CE8;&#x91CA;&#xFF0C;&#x8BF4;&#x660E;&#x53C2;&#x6570;&#x3001;&#x8F93;&#x51FA;&#x4E0E;&#x5904;&#x7406;&#x76EE;&#x7684;&#x3002;</div>
+                    <div class="vsc-box-content demo-step polish2">&#x5728;&#x73B0;&#x6709;&#x4EE3;&#x7801;&#x540E;&#x63D2;&#x5165; print_each_element(arr)&#xFF0C;&#x9010;&#x9879;&#x8F93;&#x51FA;&#x6570;&#x7EC4;&#x5143;&#x7D20;&#x3002;</div>
                   </div>
                 </div>
               </div>
@@ -2482,32 +2828,33 @@
               <!-- Code editor -->
               <div class="vsc-editor-area">
                 <div class="vsc-tabs">
-                  <div class="vsc-tab">index.ts</div>
-                  <div class="vsc-tab active">utils.ts</div>
-                  <div class="vsc-tab">README.md</div>
+                  <div class="vsc-tab active" data-view="parser">parser.py</div>
                 </div>
                 <div class="vsc-code-area">
-                  <div class="vsc-code-line"><span class="vsc-ln">1</span><span class="cl-cmt">// utils.ts</span></div>
-                  <div class="vsc-code-line"><span class="vsc-ln">2</span>&nbsp;</div>
-                  <div class="vsc-code-line vsc-inserted"><span class="vsc-ln">3</span><span class="cl-cmt">/**</span></div>
-                  <div class="vsc-code-line vsc-inserted"><span class="vsc-ln">4</span><span class="cl-cmt">&nbsp;* &#x89E3;&#x6790;&#x7528;&#x6237;&#x8F93;&#x5165;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x63D0;&#x53D6;&#x7ED3;&#x6784;&#x5316;&#x5B57;&#x6BB5;&#x5E76;&#x8FD4;&#x56DE;&#x5BF9;&#x8C61;&#x3002;</span></div>
-                  <div class="vsc-code-line vsc-inserted"><span class="vsc-ln">5</span><span class="cl-cmt">&nbsp;*/</span></div>
-                  <div class="vsc-code-line"><span class="vsc-ln">6</span><span class="cl-kw">export function </span><span class="cl-fn">parseInput</span><span class="cl-def">(</span><span class="cl-var">raw</span><span class="cl-def">: </span><span class="cl-kw">string</span><span class="cl-def">) {</span></div>
-                  <div class="vsc-code-line"><span class="vsc-ln">7</span><span class="cl-def">&nbsp;&nbsp;</span><span class="cl-kw">const </span><span class="cl-var">parts</span><span class="cl-def"> = </span><span class="cl-var">raw</span><span class="cl-def">.</span><span class="cl-fn">split</span><span class="cl-def">(</span><span class="cl-str">'|'</span><span class="cl-def">);</span></div>
-                  <div class="vsc-code-line"><span class="vsc-ln">8</span><span class="cl-def">&nbsp;&nbsp;</span><span class="cl-kw">return </span><span class="cl-def">{ </span><span class="cl-var">name</span><span class="cl-def">: </span><span class="cl-var">parts</span><span class="cl-def">[0], </span><span class="cl-var">value</span><span class="cl-def">: </span><span class="cl-var">parts</span><span class="cl-def">[1] };</span></div>
-                  <div class="vsc-code-line"><span class="vsc-ln">9</span><span class="cl-def">}</span></div>
-                  <div class="vsc-code-line"><span class="vsc-ln">10</span>&nbsp;</div>
-                  <div class="vsc-code-line"><span class="vsc-ln">11</span><span class="cl-kw">export function </span><span class="cl-fn">formatTable</span><span class="cl-def">(</span><span class="cl-var">rows</span><span class="cl-def">: </span><span class="cl-var">string</span><span class="cl-def">[][]) {</span></div>
-                  <div class="vsc-code-line"><span class="vsc-ln">12</span><span class="cl-def">&nbsp;&nbsp;</span><span class="cl-kw">return </span><span class="cl-var">rows</span><span class="cl-def">.</span><span class="cl-fn">map</span><span class="cl-def">(</span><span class="cl-var">r</span><span class="cl-def"> =&gt; </span><span class="cl-var">r</span><span class="cl-def">.</span><span class="cl-fn">join</span><span class="cl-def">(</span><span class="cl-str">' | '</span><span class="cl-def">)).</span><span class="cl-fn">join</span><span class="cl-def">(</span><span class="cl-str">'\n'</span><span class="cl-def">);</span></div>
-                  <div class="vsc-code-line"><span class="vsc-ln">13</span><span class="cl-def">}</span></div>
+                  <div class="vsc-code-view active" data-view="parser">
+                    <div class="vsc-code-line"><span class="vsc-ln">1</span><span class="cl-cmt"># parser.py</span></div>
+                    <div class="vsc-code-line"><span class="vsc-ln">2</span>&nbsp;</div>
+                    <div class="vsc-code-line vsc-inserted demo-step s1"><span class="vsc-ln">3</span><span class="cl-cmt"># parse_input: Parse a 'name|value' input string into a structured dictionary.</span></div>
+                    <div class="vsc-code-line"><span class="vsc-ln">4</span><span class="cl-kw">def</span><span class="cl-def">&nbsp;</span><span class="cl-fn">parse_input</span><span class="cl-def">(</span><span class="cl-var">raw</span><span class="cl-def">):</span></div>
+                    <div class="vsc-code-line"><span class="vsc-ln">5</span><span class="cl-def">&nbsp;&nbsp;</span><span class="cl-var">parts</span><span class="cl-def"> = </span><span class="cl-var">raw</span><span class="cl-def">.</span><span class="cl-fn">split</span><span class="cl-def">(</span><span class="cl-str">"|"</span><span class="cl-def">)</span></div>
+                    <div class="vsc-code-line"><span class="vsc-ln">6</span><span class="cl-def">&nbsp;&nbsp;</span><span class="cl-kw">return </span><span class="cl-def">{</span><span class="cl-str">"name"</span><span class="cl-def">: </span><span class="cl-var">parts</span><span class="cl-def">[0], </span><span class="cl-str">"value"</span><span class="cl-def">: </span><span class="cl-var">parts</span><span class="cl-def">[1]}</span></div>
+                    <div class="vsc-code-line"><span class="vsc-ln">7</span>&nbsp;</div>
+                    <div class="vsc-code-line vsc-inserted demo-step s1b"><span class="vsc-ln">8</span><span class="cl-cmt"># format_table: Build newline-delimited table text from 2D row data.</span></div>
+                    <div class="vsc-code-line"><span class="vsc-ln">9</span><span class="cl-kw">def</span><span class="cl-def">&nbsp;</span><span class="cl-fn">format_table</span><span class="cl-def">(</span><span class="cl-var">rows</span><span class="cl-def">):</span></div>
+                    <div class="vsc-code-line"><span class="vsc-ln">10</span><span class="cl-def">&nbsp;&nbsp;</span><span class="cl-kw">return</span><span class="cl-def">&nbsp;</span><span class="cl-str">"\n"</span><span class="cl-def">.</span><span class="cl-fn">join</span><span class="cl-def">([</span><span class="cl-str">" | "</span><span class="cl-def">.</span><span class="cl-fn">join</span><span class="cl-def">(</span><span class="cl-var">row</span><span class="cl-def">)</span><span class="cl-def">&nbsp;</span><span class="cl-kw">for</span><span class="cl-def">&nbsp;</span><span class="cl-var">row</span><span class="cl-def">&nbsp;</span><span class="cl-kw">in</span><span class="cl-def">&nbsp;</span><span class="cl-var">rows</span><span class="cl-def">])</span></div>
+                    <div class="vsc-code-line"><span class="vsc-ln">11</span>&nbsp;</div>
+                    <div class="vsc-code-line vsc-inserted demo-step s2"><span class="vsc-ln">12</span><span class="cl-kw">def</span><span class="cl-def">&nbsp;</span><span class="cl-fn">print_each_element</span><span class="cl-def">(</span><span class="cl-var">arr</span><span class="cl-def">):</span></div>
+                    <div class="vsc-code-line vsc-inserted demo-step s2"><span class="vsc-ln">13</span><span class="cl-def">&nbsp;&nbsp;</span><span class="cl-kw">for</span><span class="cl-def">&nbsp;</span><span class="cl-var">item</span><span class="cl-def">&nbsp;</span><span class="cl-kw">in</span><span class="cl-def">&nbsp;</span><span class="cl-var">arr</span><span class="cl-def">:</span></div>
+                    <div class="vsc-code-line vsc-inserted demo-step s2"><span class="vsc-ln">14</span><span class="cl-def">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cl-fn">print</span><span class="cl-def">(</span><span class="cl-var">item</span><span class="cl-def">)</span></div>
+                  </div>
                 </div>
                 <div class="vsc-statusbar">
                   <div class="vsc-sb-yanmo">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/></svg>
                     &#x8A00;&#x58A8; &#xB7; &#x5F55;&#x97F3;&#x4E2D;
                   </div>
-                  <span style="opacity:0.5;">TypeScript</span>
-                  <div class="vsc-sb-right"><span style="opacity:0.6;">Ln 6, Col 1</span></div>
+                  <span style="opacity:0.5;">Python</span>
+                  <div class="vsc-sb-right"><span style="opacity:0.6;">Ln 5, Col 1</span></div>
                 </div>
               </div>
             </div>
@@ -2515,35 +2862,32 @@
 
           <!-- Feature cards -->
           <div class="vsc-features">
-            <div class="vsc-feat-card">
-              <div class="vfc-icon">💬</div>
-              <div class="vfc-title">&#x4EE3;&#x7801;&#x6CE8;&#x91CA; &#xB7; &#x6587;&#x6863;&#x77AC;&#x751F;</div>
-              <div class="vfc-desc">&#x5BF9;&#x7740;&#x51FD;&#x6570;&#x8BF4;&#x4E00;&#x53E5;&#x63CF;&#x8FF0;&#xFF0C;&#x8A00;&#x58A8;&#x81EA;&#x52A8;&#x751F;&#x6210; JSDoc / &#x5757;&#x6CE8;&#x91CA;&#x5E76;&#x63D2;&#x5165;&#x3002;&#x5199;&#x6587;&#x6863;&#x3001;README&#xFF0C;&#x5F00;&#x53E3;&#x5373;&#x5B8C;&#x6210;&#x3002;</div>
-            </div>
             <div class="vsc-feat-card vibe">
-              <div class="vfc-icon">⚡</div>
+              <div class="vfc-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/><line x1="12" y1="19" x2="12" y2="23" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="8" y1="23" x2="16" y2="23" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
               <div class="vfc-title">Vibe Coding &#x6A21;&#x5F0F;</div>
-              <div class="vfc-desc">&#x8BF4;&#x51FA;&#x4F60;&#x60F3;&#x5B9E;&#x73B0;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x8A00;&#x58A8;&#x5C06;&#x53E3;&#x8BED;&#x8F6C;&#x4E3A;&#x6280;&#x672F;&#x63CF;&#x8FF0;&#xFF0C;&#x914D;&#x5408; Copilot / Cursor &#x7B49; AI &#x8865;&#x5168;&#x5DE5;&#x5177;&#xFF0C;&#x8BA9;&#x300C;&#x5148;&#x8BF4;&#x540E;&#x5199;&#x300D;&#x771F;&#x6B63;&#x843D;&#x5730;&#x3002;&#x58F0;&#x97F3;&#x662F;&#x6700;&#x81EA;&#x7136;&#x7684;&#x7F16;&#x7A0B;&#x8BED;&#x8A00;&#x3002;</div>
+              <div class="vfc-desc">&#x8BF4;&#x51FA;&#x4F60;&#x60F3;&#x5B9E;&#x73B0;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x8A00;&#x58A8;&#x5C06;&#x53E3;&#x8BED;&#x8F6C;&#x4E3A;&#x6280;&#x672F;&#x63CF;&#x8FF0;&#xFF0C;&#x914D;&#x5408; &#x7B49; AI &#x8865;&#x5168;&#x5DE5;&#x5177;&#xFF0C;&#x8BA9;&#x300C;&#x5148;&#x8BF4;&#x540E;&#x5199;&#x300D;&#x771F;&#x6B63;&#x843D;&#x5730;&#x3002;&#x58F0;&#x97F3;&#x662F;&#x6700;&#x81EA;&#x7136;&#x7684;&#x7F16;&#x7A0B;&#x8BED;&#x8A00;&#x3002;</div>
               <div class="vfc-vibe-badge">✨ Vibe Coding</div>
             </div>
-          </div>
-        </div>
 
-        <!-- Install strip -->
-        <div class="vsc-install-strip reveal">
-          <div class="vis-icon-wrap">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" style="color: var(--accent);"><path d="M17.5 2L8.9 12 2 7.5 0 9l3.3 3L0 15l2 1.5 6.9-4.5 8.6 10L24 20V4L17.5 2z"/></svg>
-          </div>
-          <div class="vis-text">
-            <div class="vis-title">&#x7ACB;&#x5373;&#x5B89;&#x88C5; &#x8A00;&#x58A8; for VS Code</div>
-            <div class="vis-desc">&#x5728; VS Code &#x6269;&#x5C55;&#x5E02;&#x573A;&#x641C;&#x7D22; <strong>&#x8A00;&#x58A8;</strong>&#xFF0C;&#x4E00;&#x952E;&#x5B89;&#x88C5;&#x5373;&#x53EF;&#x4F7F;&#x7528;&#x3002;&#x652F;&#x6301; VS Code 插件</div>
-          </div>
-          <div class="vis-actions">
-            <a href="#" class="vis-btn">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M17.5 2L8.9 12 2 7.5 0 9l3.3 3L0 15l2 1.5 6.9-4.5 8.6 10L24 20V4L17.5 2z"/></svg>
-              &#x5728; VS Code &#x4E2D;&#x5B89;&#x88C5;
-            </a>
-            <div class="vis-note">&#x4E5F;&#x53EF;&#x5728;&#x6269;&#x5C55;&#x5E02;&#x573A;&#x641C;&#x7D22;&#x300C;&#x8A00;&#x58A8;&#x300D;</div>
+            <!-- Install strip -->
+            <div class="vsc-install-strip reveal">
+              <div class="vis-icon-wrap">
+                <img src="pic/vsicon.webp" alt="VS Code" width="32" height="32" />
+              </div>
+              <div class="vis-text">
+                <div class="vis-title">&#x7ACB;&#x5373;&#x5B89;&#x88C5; &#x8A00;&#x58A8; for VS Code</div>
+                <div class="vis-desc">&#x5728; VS Code &#x6269;&#x5C55;&#x5E02;&#x573A;&#x641C;&#x7D22; <strong>&#x8A00;&#x58A8;</strong>&#xFF0C;&#x4E00;&#x952E;&#x5B89;&#x88C5;&#x5373;&#x53EF;&#x4F7F;&#x7528;&#x3002;&#x652F;&#x6301; VS Code 插件</div>
+              </div>
+              <div class="vis-actions">
+                <div class="vis-note">&#x4E5F;&#x53EF;&#x5728;&#x6269;&#x5C55;&#x5E02;&#x573A;&#x641C;&#x7D22;&#x300C;&#x8A00;&#x58A8;&#x300D;</div>
+                <a href="#" class="vis-btn">
+                  <img src="pic/vsicon.webp" alt="" width="14" height="14" />
+                  &#x5728; VS Code &#x4E2D;&#x5B89;&#x88C5;
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -2577,7 +2921,7 @@
             <div class="vs-screen-label">
               <span class="vs-screen-icon">✨</span>
               <span class="vs-screen-name">自动润色</span>
-              <span class="vs-screen-desc">口语转书面语，自动润色；说错直接重述，言墨识别最终意图，只提交正确结果</span>
+              <span class="vs-screen-desc">口语转书面，自动润色；说错直接重述，言墨识别最终意图，只提交正确结果</span>
             </div>
           </div>
 
@@ -2593,7 +2937,7 @@
             </div>
             <div class="vs-screen-label">
               <span class="vs-screen-icon">🎙️</span>
-              <span class="vs-screen-name">识别 · 实时转写</span>
+              <span class="vs-screen-name">语言识别 · 实时转写</span>
               <span class="vs-screen-desc">说话代替打字，语音实时转为文字，直接落入编辑器光标位置</span>
             </div>
           </div>
@@ -2607,34 +2951,6 @@
                 <span style="width:10px;height:10px;border-radius:50%;background:#28c840;display:inline-block;"></span>
               </div>
               <div style="height:200px;overflow-y:auto;padding:14px 16px;font-size:12px;color:#333;line-height:1.7;font-family:monospace;background:rgb(247, 248, 252);">
-                <div style="margin-bottom:14px;">
-                  <div style="display:flex;align-items:center;gap:5px;font-weight:600;color:#555;margin-bottom:4px;">
-                    <span style="width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;background:#e5e7eb;border-radius:4px;color:#4b5563;">🎙</span> 语音输入
-                  </div>
-                  <div style="color:#222;">"姓名张三年龄28职位工程师，整理成表格"</div>
-                  <div style="margin-top:8px;display:flex;align-items:center;gap:5px;font-weight:600;color:#4ade80;">
-                    <span style="width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;background:#e5e7eb;border-radius:4px;color:#4b5563;font-size:11px;line-height:1;">⌘</span> 执行结果
-                  </div>
-                  <div style="background:#eceff3;border-radius:6px;padding:8px 10px;margin-top:4px;color:#1f2937;line-height:2;border:1px solid #cfd6df;">
-                    <div>| 姓名 | 年龄 | 职位 |</div>
-                    <div>|------|------|------|</div>
-                    <div>| 张三 |  28  | 工程师 |</div>
-                  </div>
-                </div>
-                <div style="margin-bottom:14px;">
-                  <div style="display:flex;align-items:center;gap:5px;font-weight:600;color:#555;margin-bottom:4px;">
-                    <span style="width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;background:#e5e7eb;border-radius:4px;color:#4b5563;">🎙</span> 语音输入
-                  </div>
-                  <div style="color:#222;">"这个函数加一段注释说明作用"</div>
-                  <div style="margin-top:8px;display:flex;align-items:center;gap:5px;font-weight:600;color:#4ade80;">
-                    <span style="width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;background:#e5e7eb;border-radius:4px;color:#4b5563;font-size:11px;line-height:1;">⌘</span> 代码注释
-                  </div>
-                  <div style="border-left:3px solid #4ade80;padding-left:10px;margin-top:6px;">
-                    <div style="color:#888;">// 解析用户输入并返回结构化数据</div>
-                    <div style="color:#888;">// @param input 原始语音文本</div>
-                    <div style="color:#888;">// @returns 解析后的字段对象</div>
-                  </div>
-                </div>
                 <div>
                   <div style="display:flex;align-items:center;gap:5px;font-weight:600;color:#555;margin-bottom:4px;">
                     <span style="width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;background:#e5e7eb;border-radius:4px;color:#4b5563;">🎙</span> 语音输入
@@ -2708,8 +3024,8 @@
         <div class="feat-wrap">
           <div class="feat-text reveal">
             <div class="feat-tag">🎙️ 核心体验</div>
-            <h2 class="feat-title">开口即落字，<br />落字即成文。</h2>
-            <p class="feat-desc">语音输入与 AI 润色深度绑定——一句口语，实时转写为文字，随即润色为书面表达。思路连贯，落笔成章。</p>
+            <h2 class="feat-title">出口成章，<br />真情实感自然流露。</h2>
+            <p class="feat-desc">语音输入与 AI 润色深度绑定——口语实时转写为文字，随即润色为书面表达。思路连贯，墨随其声。</p>
             <ul class="feat-list">
               <li>实时转写，精准落入光标</li>
               <li>停止即润色，口语自动变书面语</li>
@@ -2734,7 +3050,11 @@
                     <div class="mic-dots" style="flex:1"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
                   </div>
                   <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:10px 12px;font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6;font-style:italic;">
-                    那个嗯就是把那个数组啊遍历一下然后呢把空的那些过滤掉<span style="display:inline-block;width:2px;height:13px;background:rgba(255,255,255,0.6);margin-left:2px;vertical-align:middle;animation:blink 1s step-end infinite;"></span>
+                    <div class="rec-live-text">
+                      <span class="rec-live-line raw"><span class="rec-line-tag">识别</span>那个嗯就是把那个数组啊遍历一下然后呢把空的那些过滤掉<span style="display:inline-block;width:2px;height:13px;background:rgba(255,255,255,0.6);margin-left:2px;vertical-align:middle;animation:blink 1s step-end infinite;"></span></span>
+                      <span class="rec-live-line punc"><span class="rec-line-tag">识别</span>那个，嗯，就是把那个数组啊，遍历一下，然后呢，把空的那些过滤掉。<span style="display:inline-block;width:2px;height:13px;background:rgba(255,255,255,0.6);margin-left:2px;vertical-align:middle;animation:blink 1s step-end infinite;"></span></span>
+                      <span class="rec-live-line polish"><span class="rec-line-tag">润色</span>把数组遍历一遍，再过滤掉其中的空值。<span style="display:inline-block;width:2px;height:13px;background:rgba(201,168,124,0.9);margin-left:2px;vertical-align:middle;animation:blink 1s step-end infinite;"></span></span>
+                    </div>
                   </div>
                 </div>
                 <!-- 箭头 -->
@@ -2745,7 +3065,7 @@
                 <!-- 底部：润色结果 + 风格选择 -->
                 <div style="border:1px solid rgba(26,20,16,0.10);border-radius:10px;overflow:hidden;">
                   <div style="padding:10px 14px;border-bottom:1px solid rgba(26,20,16,0.07);display:flex;align-items:center;justify-content:space-between;background:rgba(26,20,16,0.03);">
-                    <div style="font-size:11px;font-weight:600;color:var(--accent);letter-spacing:.06em;">✨ 润色结果</div>
+                    <div style="font-size:11px;font-weight:600;color:var(--accent);letter-spacing:.06em;">✨ 识别结果</div>
                     <div style="display:flex;gap:5px;">
                       <span style="font-size:10px;background:var(--accent);color:#fff;border-radius:20px;padding:2px 9px;font-weight:600;">默认</span>
                       <span style="font-size:10px;background:rgba(26,20,16,0.07);color:var(--text-2);border-radius:20px;padding:2px 9px;">简洁</span>
@@ -2754,7 +3074,16 @@
                     </div>
                   </div>
                   <div style="padding:14px 18px;font-size:13px;color:var(--text);line-height:1.7;">
-                    遍历数组并过滤掉其中的空值，返回处理后的结果集合。
+                    <div class="rec-result-stack">
+                      <div class="rec-result-line rec">
+                        <span class="rec-result-tag">识别结果</span>
+                        <span class="rec-result-text">那个，嗯，就是把那个数组啊，遍历一下，然后呢，把空的那些过滤掉。</span>
+                      </div>
+                      <div class="rec-result-line polish">
+                        <span class="rec-result-tag">润色结果</span>
+                        <span class="rec-result-text">遍历数组并过滤掉其中的空值，返回处理后的结果集合。</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -2806,18 +3135,17 @@
                   <div style="font-size:11px;font-weight:600;color:var(--accent);letter-spacing:.06em;margin-bottom:8px">📖 自定义词典</div>
                   <div style="font-size:12px;color:#3d3530;background:rgba(26,20,16,.04);border:1px solid rgba(26,20,16,.1);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:10px">
                     <div style="display:flex;align-items:center;gap:8px">
-                      <span style="background:#f0ede8;border:1px solid rgba(26,20,16,.15);border-radius:6px;padding:3px 10px;white-space:nowrap;color:#1a1410;font-weight:500">赛博坦</span>
-                      <div style="color:#7a6e65;font-size:11px"><span style="text-decoration:line-through;opacity:.5">赛博探</span><span style="margin:0 5px">→</span><span style="color:#16a34a">赛博坦</span></div>
+                      <span style="background:#f0ede8;border:1px solid rgba(26,20,16,.15);border-radius:6px;padding:3px 10px;white-space:nowrap;color:#1a1410;font-weight:500">黑客马拉松</span>
+                      <div style="color:#7a6e65;font-size:11px"></div>
                     </div>
-                    <div style="display:flex;align-items:center;gap:8px">
-                      <span style="background:#f0ede8;border:1px solid rgba(26,20,16,.15);border-radius:6px;padding:3px 10px;white-space:nowrap;color:#1a1410;font-weight:500">熵减</span>
-                      <div style="color:#7a6e65;font-size:11px"><span style="text-decoration:line-through;opacity:.5">商减</span><span style="margin:0 5px">→</span><span style="color:#16a34a">熵减</span></div>
+                    <div style="border-top:1px solid rgba(26,20,16,.08);padding-top:8px;display:flex;flex-direction:column;gap:7px">
+                      <div style="font-size:11px;color:#1a1410;font-weight:600">翻译质量对比（添加词典前后）</div>
+                      <div style="font-size:11px;color:#7a6e65;line-height:1.65">
+                         <span style="color:#b45309;font-weight:600">原文: We will hold a Hackathon activity this weekend</span>
+                        <span style="display:block"><span style="color:#b45309;font-weight:600">添加前：</span> 识别为「周末要办 <span style="font-weight:700;color:#b45309">马拉松</span> 长跑活动」。</span>
+                        <span style="display:block"><span style="color:#16a34a;font-weight:600">添加后：</span>准确识别「周末要办 <span style="font-weight:700;color:#16a34a">黑客马拉松</span> 极客比赛」。</span>
+                      </div>
                     </div>
-                    <div style="display:flex;align-items:center;gap:8px">
-                      <span style="background:#f0ede8;border:1px solid rgba(26,20,16,.15);border-radius:6px;padding:3px 10px;white-space:nowrap;color:#1a1410;font-weight:500">纳斯达克</span>
-                      <div style="color:#7a6e65;font-size:11px"><span style="text-decoration:line-through;opacity:.5">那斯达可</span><span style="margin:0 5px">→</span><span style="color:#16a34a">纳斯达克</span></div>
-                    </div>
-                    <div style="color:#7a6e65;font-size:11px;border-top:1px solid rgba(26,20,16,.08);padding-top:8px">已添加 3 个词 · 语音转写时优先匹配 ✓</div>
                   </div>
                 </div>
               </div>
@@ -2831,7 +3159,7 @@
         <div class="feat-wrap">
           <div class="feat-text reveal">
             <div class="feat-tag">✨ AI 润色</div>
-            <h2 class="feat-title">口语变书面语，<br />多种风格一键切。</h2>
+            <h2 class="feat-title">口语变书面，<br />多种风格一键切。</h2>
             <p class="feat-desc">停止录音后 AI 自动整理措辞，流式实时输出。</p>
             <ul class="feat-list">
               <li>多种内置风格：默认 / 简洁 / 详尽 / 正式 / 轻松</li>
@@ -2921,13 +3249,13 @@
       <div class="container">
         <div class="feat-wrap flip">
           <div class="feat-text reveal">
-            <div class="feat-tag">✨ 自动润色</div>
-            <h2 class="feat-title">开口即是文章，<br />每句话都值得被记录。</h2>
-            <p class="feat-desc">AI 自动消除语气词、重复和停顿，将随口一说转化为清晰专业的书面表达。</p>
+            <div class="feat-tag">🕘 历史记录</div>
+            <h2 class="feat-title"><span style="display: block; white-space: nowrap">表达有据可查，</span><span style="display: block; white-space: nowrap">关键内容随时找回。</span></h2>
+            <p class="feat-desc">言墨按时间保存每次语音输入与润色结果，支持快速检索、回看与复用，不怕灵感漏掉。</p>
             <ul class="feat-list">
-              <li>口语转书面语，去除冗余与停顿</li>
-              <li>智能补全标点，段落层次分明</li>
-              <li>原文与润色并列对比，一键选用</li>
+              <li>按时间轴自动归档，最近内容一眼可见</li>
+              <li>原话与润色结果同屏回看，定位更快</li>
+              <li>常用表达随时复用，减少重复输入</li>
             </ul>
           </div>
           <div class="feat-visual reveal">
@@ -2964,7 +3292,7 @@
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                       </svg>
-                      短语
+                      快捷词
                     </div>
                     <div class="sb-item">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -2981,7 +3309,7 @@
                     class="win-header"
                     style="display: flex; align-items: flex-start; justify-content: space-between; padding-right: 16px"
                   >
-                    <div class="wh-sub">Speak naturally, let AI perfect every word</div>
+                    <div class="wh-sub">自然开口，句句可回看</div>
                     <div class="clear-btn" style="margin-top: 22px">全部清除</div>
                   </div>
                   <div class="history-list">
@@ -3000,10 +3328,6 @@
                     <div class="hist-item">
                       <div class="hist-meta">2026-01-21 16:53:17 <span class="hist-sep">|</span> 20 字</div>
                       <div class="hist-text">帮忙查一下这个。</div>
-                    </div>
-                    <div class="hist-item">
-                      <div class="hist-meta">2026-01-21 16:51:14 <span class="hist-sep">|</span> 9 字</div>
-                      <div class="hist-text">真是的，怕聪明。</div>
                     </div>
                   </div>
                   <div class="hist-footer">
@@ -3028,12 +3352,12 @@
         <div class="feat-wrap">
           <div class="feat-text reveal">
             <div class="feat-tag">⌘ 命令模式</div>
-            <h2 class="feat-title">识别不止于转写，<br />更是精准的指令。</h2>
+            <h2 class="feat-title">识别不止转写，更是指令的理解和执行。</h2>
             <p class="feat-desc">言墨识别语音，理解意图，一句话即可触发排版、检索、插入——无需鼠标，无需快捷键。</p>
             <ul class="feat-list">
               <li>说"整理成表格"，Markdown 即刻生成</li>
               <li>说"来一句李白"，匹配诗句直接插入</li>
-              <li>成语、名言、术语，说出类型即可召唤</li>
+              <li>成语、名言、术语，顺手拈来</li>
               <li>口语照单全收，不用字斟句酌</li>
             </ul>
           </div>
@@ -3053,7 +3377,7 @@
                   <div style="font-family:monospace;font-size:12px;color:var(--text-1);line-height:1.8;background:rgba(0,0,0,0.3);border-radius:6px;padding:10px 12px">
                     | 姓名 | 年龄 | 职位 |<br />
                     |------|------|------|<br />
-                    | 张三 | 28   | 工程师 |
+                    | 张三 |  28   | 工程师 |
                   </div>
                 </div>
 
@@ -3081,7 +3405,7 @@
         <div class="feat-wrap flip">
           <div class="feat-text reveal">
             <div class="feat-tag">⚡ 快捷短语</div>
-            <h2 class="feat-title">一词既出，<br />满屏皆至。</h2>
+            <h2 class="feat-title"><span style="display:block;white-space:nowrap;">快捷词触发，</span><span style="display:block;white-space:nowrap;">对应信息自动替换。</span></h2>
             <p class="feat-desc">将惯用语、签名、专业表述凝练为一个触发词。轻声一唤，完整内容即刻铺陈。</p>
             <ul class="feat-list">
               <li>自定义触发词与替换内容，数量不限</li>
@@ -3122,7 +3446,7 @@
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                       </svg>
-                      短语
+                      快捷词
                     </div>
                     <div class="sb-item">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -3135,19 +3459,47 @@
                   <div class="sb-bottom"><div class="sb-avatar">👤</div></div>
                 </div>
                 <div class="win-content">
-                  <div
+                  
+                  <div class="phrase-body">
+                    <div class="phrase-row demo-step s1">
+                  <div class="phrase-trigger">
+                    <span class="pt-icon">⚡</span>
+                    <span class="pt-name">问好</span>
+                    <span class="pt-actions">✏ 🗑</span>
+                  </div>
+                      <div class="phrase-arrow">→</div>
+                      <div class="phrase-result">感谢您的来信。请问有什么我可以帮助您？ <span style="color: #bbb; font-size: 10px">✏</span></div>
+                    </div>
+                    <div class="phrase-row demo-step s2">
+                  <div class="phrase-trigger">
+                    <span class="pt-icon">⚡</span>
+                    <span class="pt-name">我的个人邮箱</span>
+                    <span class="pt-actions">✏ 🗑</span>
+                  </div>
+                      <div class="phrase-arrow">→</div>
+                      <div class="phrase-result">Personal@outlook.com <span style="color: #bbb; font-size: 10px">✏</span></div>
+                    </div>
+                    <div class="phrase-row demo-step s3">
+                  <div class="phrase-trigger">
+                    <span class="pt-icon">⚡</span>
+                    <span class="pt-name">我们的地址</span>
+                    <span class="pt-actions">✏ 🗑</span>
+                  </div>
+                      <div class="phrase-arrow">→</div>
+                  <div class="phrase-result">北京市海淀区丹棱街5号 <span style="color: #bbb; font-size: 10px">✏</span></div>
+                  
+                </div>
+                <div
                     class="win-header"
-                    style="display: flex; align-items: flex-start; justify-content: space-between; padding-right: 16px"
+                    style="display: flex; justify-content: flex-end; padding: 8px 16px 6px"
                   >
-                    <div class="wh-sub">Speak a spark, and let a full phrase bloom</div>
                     <div
                       style="
-                        margin-top: 22px;
-                        padding: 6px 14px;
+                        padding: 5px 12px;
                         background: #1a1a2e;
                         color: white;
                         border-radius: 7px;
-                        font-size: 11px;
+                        font-size: 10px;
                         font-weight: 600;
                         cursor: default;
                       "
@@ -3155,19 +3507,20 @@
                       + 新增
                     </div>
                   </div>
+              </div>
                   <!-- Live transcription demo: 3 phrases, each in its own sentence -->
                   <div style="margin:0 0 10px;border-radius:9px;overflow:hidden;border:1px solid rgba(255,255,255,.08)">
                     <div style="font-size:10px;color:var(--text-3);padding:6px 10px 5px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:5px">
                       <span style="width:6px;height:6px;border-radius:50%;background:#f87171;display:inline-block;animation:pulseRed 1.4s ease-in-out infinite"></span>
-                      实时转写中…
+                      实时识别中…
                     </div>
-                    <div style="padding:10px 12px;font-size:12px;line-height:1.6;color:rgba(255,255,255,.85);background:rgba(0,0,0,.55);min-height:52px;position:relative">
+                    <div style="padding:10px 12px;font-size:12px;line-height:1.6;color:rgba(255,255,255,.85);background:rgba(0,0,0,.55);min-height:96px;position:relative">
                       <!-- Segment 1: 问好 -->
                       <span style="animation:phraseP1a 18s linear infinite">
                         下午好，我想发一封邮件，<span style="color:#fbbf24;background:rgba(251,191,36,.12);border-radius:3px;padding:0 2px">问好</span><span style="display:inline-block;width:1.5px;height:12px;background:rgba(255,255,255,.6);vertical-align:middle;margin-left:1px;animation:blink 1s step-end infinite"></span>
                       </span>
                       <span style="animation:phraseP1b 18s linear infinite;position:absolute;left:12px;top:10px;right:12px;opacity:0">
-                        下午好，我想发一封邮件，<span style="color:#86efac">您好，感谢您的来信。请问有什么我可以帮助您的？</span><span style="display:inline-block;width:1.5px;height:12px;background:rgba(255,255,255,.6);vertical-align:middle;margin-left:1px;animation:blink 1s step-end infinite"></span>
+                        下午好，我想发一封邮件，<span style="color:#86efac">感谢您的来信。请问有什么我可以帮助您？</span><span style="display:inline-block;width:1.5px;height:12px;background:rgba(255,255,255,.6);vertical-align:middle;margin-left:1px;animation:blink 1s step-end infinite"></span>
                       </span>
                       <!-- Segment 2: 我的个人邮箱 -->
                       <span style="animation:phraseP2a 18s linear infinite;position:absolute;left:12px;top:10px;right:12px;opacity:0">
@@ -3184,62 +3537,12 @@
                         欢迎来访，<span style="color:#86efac">北京市海淀区丹棱街5号</span>，期待您的到来！<span style="display:inline-block;width:1.5px;height:12px;background:rgba(255,255,255,.6);vertical-align:middle;margin-left:1px;animation:blink 1s step-end infinite"></span>
                       </span>
                     </div>
-                    <div style="font-size:10px;padding:4px 10px;border-top:1px solid rgba(134,239,172,.12);position:relative;min-height:22px;background:rgba(134,239,172,.04)">
-                      <span style="position:absolute;left:10px;top:4px;color:rgba(134,239,172,.7);animation:phraseHint1 18s linear infinite;opacity:0">⚡ 触发词「问好」已展开</span>
-                      <span style="position:absolute;left:10px;top:4px;color:rgba(134,239,172,.7);animation:phraseHint2 18s linear infinite;opacity:0">⚡ 触发词「我的个人邮箱」已展开</span>
-                      <span style="position:absolute;left:10px;top:4px;color:rgba(134,239,172,.7);animation:phraseHint3 18s linear infinite;opacity:0">⚡ 触发词「我们的地址」已展开</span>
+                    <div style="font-size:10px;padding:4px 10px;border-top:1px solid rgba(134,239,172,.12);position:relative;min-height:30px;background:rgba(134,239,172,.04)">
+                      <span style="position:absolute;left:10px;top:4px;color:var(--accent);font-weight:600;background:rgba(122,58,16,.08);border:1px solid rgba(122,58,16,.2);border-radius:4px;padding:1px 6px;text-shadow:none;animation:phraseHint1 18s linear infinite;opacity:0">⚡ 快捷词「问好」已展开</span>
+                      <span style="position:absolute;left:10px;top:4px;color:var(--accent);font-weight:600;background:rgba(122,58,16,.08);border:1px solid rgba(122,58,16,.2);border-radius:4px;padding:1px 6px;text-shadow:none;animation:phraseHint2 18s linear infinite;opacity:0">⚡ 快捷词「我的个人邮箱」已展开</span>
+                      <span style="position:absolute;left:10px;top:4px;color:var(--accent);font-weight:600;background:rgba(122,58,16,.08);border:1px solid rgba(122,58,16,.2);border-radius:4px;padding:1px 6px;text-shadow:none;animation:phraseHint3 18s linear infinite;opacity:0">⚡ 快捷词「我们的地址」已展开</span>
                     </div>
-                  </div>
-                  <div class="phrase-body">
-                    <div class="phrase-row">
-                      <div class="phrase-trigger">
-                        <span class="pt-icon">⚡</span>
-                        <span class="pt-name">问好</span>
-                        <span class="pt-actions">✏ 🗑</span>
-                      </div>
-                      <div class="phrase-arrow">→</div>
-                      <div class="phrase-result">您好，感谢您的来信。请问有什么我可以帮助您的？ <span style="color: #bbb; font-size: 10px">✏</span></div>
-                    </div>
-                    <div class="phrase-row">
-                      <div class="phrase-trigger">
-                        <span class="pt-icon">⚡</span>
-                        <span class="pt-name">我的个人邮箱</span>
-                        <span class="pt-actions">✏ 🗑</span>
-                      </div>
-                      <div class="phrase-arrow">→</div>
-                      <div class="phrase-result">Personal@outlook.com <span style="color: #bbb; font-size: 10px">✏</span></div>
-                    </div>
-                    <div class="phrase-row">
-                      <div class="phrase-trigger">
-                        <span class="pt-icon">⚡</span>
-                        <span class="pt-name">我们的地址</span>
-                        <span class="pt-actions">✏ 🗑</span>
-                      </div>
-                      <div class="phrase-arrow">→</div>
-                      <div class="phrase-result">北京市海淀区丹棱街5号 <span style="color: #bbb; font-size: 10px">✏</span></div>
-                    </div>
-                  </div>
-                  <div class="phrase-footer">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
-                    </svg>
-                    共 3 个快捷短语
-                    <div class="vol-slider" style="margin-left: auto">
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-                      </svg>
-                      <div class="vol-track"><div class="vol-fill"></div></div>
-                      <span style="font-size: 11px; color: #888">100</span>
-                    </div>
-                    <div class="clear-btn">全部清除</div>
-                  </div>
+              </div>
                 </div>
               </div>
             </div>
@@ -3255,54 +3558,45 @@
         <div class="feat-wrap">
         <div class="feat-text">
           <span class="feat-tag">跨平台</span>
-          <h2 class="feat-title">Windows、Mac 与浏览器扩展，<br />随时安装即用。</h2>
-          <p class="feat-desc">桌面应用与网页版体验完全一致，换台电脑打开浏览器，立刻接着用。</p>
+          <h2 class="feat-title">支持Windows、Mac、浏览器等平台，<br />开箱即用。</h2>
+          <p class="feat-desc">无论在本地应用还是网页端，界面与操作保持一致，切换设备也不会打断你的节奏。</p>
           <ul class="feat-list">
-            <li>支持 Windows / macOS</li>
-            <li>浏览器直接访问</li>
-            <li>本地应用与网页版体验一致</li>
-            <li>数据本地存储，随时可查</li>
+            <li>覆盖 Windows / macOS 双平台</li>
+            <li>浏览器端免安装，登录即用</li>
+            <li>与扩展版体验统一，无学习成本</li>
           </ul>
         </div>
         <div class="feat-visual">
-          <div class="app-window" style="height:440px">
-            <div class="win-chrome">
-              <span class="wc-dot wc-r"></span><span class="wc-dot wc-y"></span><span class="wc-dot wc-g"></span>
-            </div>
-            <div class="win-body">
-              <div class="win-sidebar">
-                <div class="sb-logo"><img src="favicon.png" alt="言墨" /></div>
-                <div class="sb-icon active" style="background:rgba(192,64,64,0.1); color:#c04040;">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                </div>
-                <div class="sb-icon" style="color:#aaa;">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/><line x1="9" y1="15" x2="13" y2="15"/></svg>
-                </div>
-                <div class="sb-icon" style="color:#aaa;">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
-                </div>
+          <div style="width:min(100%,520px); padding:6px 0;">
+            <div style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px;">
+              <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; min-height:150px; border-radius:16px; background:rgba(139,92,246,0.08); border:1px solid rgba(139,92,246,0.24);">
+                <svg width="56" height="56" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path fill="#f35325" d="M1 3l9.8-1.3v9.6H1z"/>
+                  <path fill="#81bc06" d="M11.8 1.5L23 0v11.3H11.8z"/>
+                  <path fill="#05a6f0" d="M1 12.7h9.8v9.6L1 21z"/>
+                  <path fill="#ffba08" d="M11.8 12.7H23V24l-11.2-1.5z"/>
+                </svg>
+                <span style="font-size:16px; color:#6d28d9; font-weight:700;">Windows</span>
               </div>
-              <div class="win-content">
-                <div style="padding: 16px;">
-                  <div style="font-size: 11px; color: #888; margin-bottom: 12px; letter-spacing: 0.05em;">当前运行环境</div>
-                  <div style="display: flex; flex-direction: column; gap: 8px;">
-                    <div style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.2);">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                      <span style="font-size: 12px; color: #6d28d9; font-weight: 500;">Windows</span>
-                      <span style="margin-left: auto; font-size: 10px; color: #888; background: rgba(139,92,246,0.1); padding: 2px 6px; border-radius: 4px;">桌面应用</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.08);">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
-                      <span style="font-size: 12px; color: #555;">macOS</span>
-                      <span style="margin-left: auto; font-size: 10px; color: #888; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">桌面应用</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.08);">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                      <span style="font-size: 12px; color: #555;">浏览器</span>
-                      <span style="margin-left: auto; font-size: 10px; color: #888; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">零安装</span>
-                    </div>
-                  </div>
-                </div>
+              <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; min-height:150px; border-radius:16px; background:rgba(0,0,0,0.03); border:1px solid rgba(0,0,0,0.09);">
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="color:#666;"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>
+                <span style="font-size:16px; color:#555; font-weight:700;">MacOS</span>
+              </div>
+              <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; min-height:150px; border-radius:16px; background:rgba(0,122,204,0.08); border:1px solid rgba(0,122,204,0.26);">
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="#007acc" xmlns="http://www.w3.org/2000/svg"><path d="M17.6 1 7.1 11l-4.6-3.5L0 8.8l4.9 4.5L0 17.8l2.5 1.3L7 15.6 17.6 23 24 20.4V3.6L17.6 1zm.1 4.1v13.8l-6.5-5.6 6.5-8.2z"/></svg>
+                <span style="font-size:16px; color:#0369a1; font-weight:700;">VS Code</span>
+              </div>
+              <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; min-height:150px; border-radius:16px; background:rgba(0,0,0,0.03); border:1px solid rgba(0,0,0,0.09);">
+                <img src="pic/bing.png" alt="Bing" style="width:56px; height:56px; object-fit:contain;" />
+                <span style="font-size:16px; color:#2563eb; font-weight:700;">Bing</span>
+              </div>
+              <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; min-height:150px; border-radius:16px; background:rgba(36,99,235,0.08); border:1px solid rgba(36,99,235,0.24);">
+                <img src="pic/edge.png" alt="Edge" style="width:56px; height:56px; object-fit:contain;" />
+                <span style="font-size:16px; color:#1d4ed8; font-weight:700;">Edge</span>
+              </div>
+              <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; min-height:150px; border-radius:16px; background:rgba(234,179,8,0.10); border:1px solid rgba(234,179,8,0.28);">
+                <img src="pic/chrome.png" alt="Chrome" style="width:56px; height:56px; object-fit:contain;" />
+                <span style="font-size:16px; color:#a16207; font-weight:700;">Chrome</span>
               </div>
             </div>
           </div>
@@ -3472,11 +3766,6 @@
     <!-- Footer -->
     <footer class="footer">
       <div class="container footer-inner">
-        <div class="footer-brand">
-          <span class="logo-icon"><img src="favicon.png" alt="言墨" /></span>
-          <span class="logo-text">言墨</span>
-          <p>以声音为笔，以认知为墨。</p>
-        </div>
         <div class="footer-links">
           <a href="#">隐私政策</a>
           <a href="#">使用条款</a>
@@ -3488,6 +3777,131 @@
       </div>
     </footer>
 
+    <script>
+      (function () {
+        var tabs = document.querySelectorAll('.vsc-editor-area .vsc-tab');
+
+        tabs.forEach(function (tab) {
+          tab.addEventListener('click', function () {
+            tabs.forEach(function (t) { t.classList.remove('active'); });
+            tab.classList.add('active');
+          });
+          tab.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              tabs.forEach(function (t) { t.classList.remove('active'); });
+              tab.classList.add('active');
+            }
+          });
+        });
+
+        function isLineVisible(line) {
+          var style = window.getComputedStyle(line);
+          if (style.display === 'none' || style.visibility === 'hidden') {
+            return false;
+          }
+          if (parseFloat(style.opacity) <= 0.02) {
+            return false;
+          }
+          if (parseFloat(style.maxHeight) === 0) {
+            return false;
+          }
+          return line.getBoundingClientRect().height > 0;
+        }
+
+        function renumberVisibleLines() {
+          var activeView = document.querySelector('.vsc-code-view.active');
+          if (!activeView) return;
+
+          var lines = activeView.querySelectorAll('.vsc-code-line');
+          var n = 1;
+
+          lines.forEach(function (line) {
+            var ln = line.querySelector('.vsc-ln');
+            if (!ln) return;
+
+            if (isLineVisible(line)) {
+              ln.textContent = String(n);
+              n += 1;
+            }
+          });
+        }
+
+        renumberVisibleLines();
+        setInterval(renumberVisibleLines, 120);
+      })();
+    </script>
+
+    <script>
+      (function () {
+        var vscBody = document.querySelector('.vsc-body');
+        var targets = document.querySelectorAll('.vsc-panel .vsc-box-content.demo-step');
+        if (!vscBody || !targets.length) return;
+
+        var started = false;
+
+        function typeText(el, delay, duration) {
+          var cursor = el.querySelector('.vsc-cursor');
+          if (cursor) cursor.remove();
+
+          var fullText = el.textContent.trim();
+          if (!fullText) return;
+
+          var textNode = document.createTextNode('');
+          el.textContent = '';
+          el.appendChild(textNode);
+
+          setTimeout(function () {
+            var startTime = 0;
+            var total = fullText.length;
+
+            function tick(ts) {
+              if (!startTime) startTime = ts;
+              var progress = Math.min(1, (ts - startTime) / duration);
+              var count = Math.max(1, Math.floor(total * progress));
+              textNode.nodeValue = fullText.slice(0, count);
+
+              if (progress < 1) {
+                requestAnimationFrame(tick);
+              }
+            }
+
+            requestAnimationFrame(tick);
+          }, delay);
+        }
+
+        function startTyping() {
+          if (started) return;
+          started = true;
+
+          targets.forEach(function (el) {
+            if (el.classList.contains('raw1')) {
+              typeText(el, 1000, 2600);
+            } else if (el.classList.contains('polish1')) {
+              typeText(el, 4000, 2600);
+            } else if (el.classList.contains('raw2')) {
+              typeText(el, 10000, 2600);
+            } else if (el.classList.contains('polish2')) {
+              typeText(el, 13000, 2600);
+            }
+          });
+        }
+
+        if (vscBody.classList.contains('visible')) {
+          startTyping();
+          return;
+        }
+
+        var observer = new MutationObserver(function () {
+          if (vscBody.classList.contains('visible')) {
+            startTyping();
+            observer.disconnect();
+          }
+        });
+
+        observer.observe(vscBody, { attributes: true, attributeFilter: ['class'] });
+      })();
+    </script>
     <script src="main.js"></script>
   </body>
 </html>

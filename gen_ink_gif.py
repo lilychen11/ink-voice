@@ -413,10 +413,10 @@ def make_blob(r, cx, cy, flatten=0.85):
 def build_frames():
     frames = []
 
-    # Phase 1 — 落下 (22帧)
+    # Phase 1 — 落下 (40帧)
     fall_start = -14        # 从画面上方刚好露出水滴尖尾处入场
     fall_end   = DROP_CY
-    fall_steps = 22
+    fall_steps = 40
     for i in range(fall_steps):
         t   = ease_in((i + 1) / fall_steps, 2.0)
         fy  = lerp(fall_start, fall_end, t)
@@ -425,8 +425,8 @@ def build_frames():
         blend(base, INK, td * 0.92)
         frames.append(Image.fromarray(base))
 
-    # Phase 2 — 撞击扩散成小墨团 (18帧)
-    spread_steps = 18
+    # Phase 2 — 撞击扩散成小墨团 (40帧)
+    spread_steps = 40
     blob_r = 0.0
     for i in range(spread_steps):
         t      = ease_out((i + 1) / spread_steps, 1.8)
@@ -451,8 +451,8 @@ def build_frames():
             blend(base, INK, dot)
         frames.append(Image.fromarray(base))
 
-    # Phase 3 — 墨团轻微晕染停留 (10帧)
-    held_steps = 10
+    # Phase 3 — 墨团轻微晕染停留 (40帧)
+    held_steps = 40
     for i in range(held_steps):
         base  = np.full((H, W, 3), PAPER, dtype=np.uint8)
         bm    = make_blob(BLOB_MAX_R + i * 0.6, DROP_CX, DROP_CY)
