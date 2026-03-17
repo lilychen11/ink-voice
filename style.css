@@ -48,7 +48,10 @@
 
 html {
   height: 100%;
-  overflow: hidden;
+  min-width: 1200px;
+  overflow: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
 }
 
 body {
@@ -60,13 +63,10 @@ body {
   font-family: var(--font-sans);
   font-weight: 300;
   line-height: 1.75;
-  height: 100%;
+  min-height: 100%;
   min-width: 1200px;
-  overflow-y: scroll;
-  overflow-x: auto;
-  scroll-snap-type: y proximity; /* 改为 proximity，吸附力度更柔和 */
-  scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  position: relative;
+  /* overflow handled by html */
 }
 
 @keyframes ink-deco-fadein {
@@ -234,6 +234,7 @@ section {
   left: 0;
   right: 0;
   z-index: 100;
+  min-width: 1200px;
   padding: 16px 0;
   background: rgba(250, 247, 243, 0.82);
   backdrop-filter: blur(20px);
