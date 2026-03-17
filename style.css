@@ -46,7 +46,10 @@
   --container-w:  1140px;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  height: 100%;
+  overflow: hidden;
+}
 
 body {
   background:
@@ -57,7 +60,12 @@ body {
   font-family: var(--font-sans);
   font-weight: 300;
   line-height: 1.75;
+  height: 100%;
+  overflow-y: scroll;
   overflow-x: hidden;
+  scroll-snap-type: y proximity; /* 改为 proximity，吸附力度更柔和 */
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 
 @keyframes ink-deco-fadein {
@@ -85,7 +93,11 @@ body {
   padding: 0 32px;
 }
 
-section { position: relative; z-index: 1; }
+section {
+  position: relative;
+  z-index: 1;
+  scroll-snap-align: center;
+}
 
 /* ---- Reveal Animations ---- */
 .reveal {
@@ -765,6 +777,7 @@ section { position: relative; z-index: 1; }
   position: relative;
   overflow: hidden;
   border-top: 1px solid var(--ink-wash-2);
+  scroll-snap-align: center;
   background:
     radial-gradient(ellipse 64% 54% at 14% 22%, rgba(26,20,16,0.055) 0%, transparent 66%),
     radial-gradient(ellipse 56% 46% at 86% 78%, rgba(122,58,16,0.07) 0%, transparent 62%);

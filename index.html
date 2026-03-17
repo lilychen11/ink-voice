@@ -74,6 +74,10 @@
         background:
           radial-gradient(ellipse 60% 50% at 50% 50%, rgba(122,58,16,0.045) 0%, transparent 70%);
       }
+      /* 拓宽三屏展示区的容器宽度，避免窗口显得过于瘦长 */
+      .overview-app-section .container {
+        max-width: 1380px;
+      }
       /* 核心体验 #recording 暖橙晕（语音=热烈） */
       #recording {
         background:
@@ -170,22 +174,26 @@
         transform: translateY(-20px);
       }
 
+      .feat-section .container {
+        max-width: 1240px;
+      }
+
       /* 从润色页往下：窗口区域加宽，避免显得偏小 */
       #recording .feat-wrap,
       #polish .feat-wrap,
       #command .feat-wrap,
       #platform .feat-wrap {
-        grid-template-columns: minmax(0, 1fr) 640px;
+        grid-template-columns: minmax(0, 1fr) 680px;
       }
       #platform .feat-wrap {
-        grid-template-columns: 420px 560px;
+        grid-template-columns: 420px 520px;
         justify-content: center;
         gap: 88px;
       }
       #yanmo .feat-wrap.flip,
       #history .feat-wrap.flip,
       #phrases .feat-wrap.flip {
-        grid-template-columns: 720px minmax(0, 1fr);
+        grid-template-columns: 700px minmax(0, 1fr);
       }
       #phrases .feat-wrap.flip {
         gap: 128px;
@@ -200,11 +208,14 @@
         justify-content: center;
       }
       #recording .app-window,
-      #polish .style-demo,
-      #command .app-window,
       #platform .app-window {
         width: 100%;
-        max-width: 640px;
+        max-width: 680px;
+      }
+      #polish .style-demo,
+      #command .app-window {
+        width: 100%;
+        max-width: 780px;
       }
       #recording {
         overflow: visible;
@@ -230,10 +241,13 @@
         max-width: 560px;
       }
       #yanmo .app-window,
-      #history .app-window,
+      #history .app-window {
+        width: 100%;
+        max-width: 780px;
+      }
       #phrases .app-window {
         width: 100%;
-        max-width: 720px;
+        max-width: 780px;
       }
 
       .feat-tag {
@@ -348,6 +362,17 @@
         flex: 1;
         min-height: 0;
       }
+      .win-body::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      .win-body::-webkit-scrollbar-thumb {
+        background: rgba(100,116,139,0.3);
+        border-radius: 4px;
+      }
+      .win-body::-webkit-scrollbar-track {
+        background: transparent;
+      }
 
       /* SIDEBAR */
       .win-sidebar {
@@ -449,21 +474,21 @@
         overflow: hidden;
       }
       .win-header {
-        padding: 22px 24px 14px;
+        padding: 30px 28px 18px;
         flex-shrink: 0;
       }
       .wh-sub {
-        font-size: 11px;
+        font-size: 13.5px;
         font-style: italic;
         color: #aaa;
-        margin-top: 3px;
+        margin-top: 5px;
       }
       .wh-status {
         display: inline-flex;
         align-items: center;
-        gap: 5px;
-        margin-top: 6px;
-        font-size: 11px;
+        gap: 6px;
+        margin-top: 8px;
+        font-size: 13px;
         color: #888;
       }
       .status-dot-green {
@@ -642,68 +667,69 @@
 
       /* HISTORY LIST */
       .history-list {
-        padding: 0 16px;
+        padding: 0 28px;
         display: flex;
         flex-direction: column;
         overflow-y: auto;
-        max-height: 280px;
+        max-height: 380px;
+        gap: 6px;
       }
       .hist-item {
-        padding: 12px 0;
+        padding: 16px 0;
         border-bottom: 1px solid #f0f0f4;
       }
       .hist-item:last-child {
         border-bottom: none;
       }
       .hist-meta {
-        font-size: 10px;
+        font-size: 12.5px;
         color: #bbb;
-        margin-bottom: 5px;
+        margin-bottom: 8px;
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
       }
       .hist-sep {
         color: #ddd;
       }
       .hist-text {
-        font-size: 13px;
+        font-size: 15px;
         color: #1a1410;
-        line-height: 1.55;
+        line-height: 1.6;
       }
       .hist-footer {
-        padding: 10px 16px;
+        padding: 14px 28px;
         border-top: 1px solid #f0f0f2;
-        font-size: 10px;
+        font-size: 13px;
         color: #bbb;
         display: flex;
         align-items: center;
-        gap: 5px;
+        gap: 8px;
         flex-shrink: 0;
       }
       .clear-btn {
-        padding: 6px 14px;
+        padding: 7px 16px;
         background: #1a1a2e;
         color: white;
-        border-radius: 7px;
-        font-size: 11px;
-        font-weight: 600;
+        border-radius: 9px;
+        font-size: 13px;
+        font-weight: 700;
         cursor: default;
       }
 
       /* PHRASE MOCKUP */
       .phrase-body {
-        padding: 6px 16px;
+        padding: 30px 28px 10px;
         flex: 0 0 auto;
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 12px;
       }
       .phrase-row {
         display: grid;
-        grid-template-columns: 1fr 20px 1fr;
+        grid-template-columns: 1fr 24px 1fr;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
       }
       .phrase-row.demo-step {
         opacity: 1;
@@ -737,39 +763,40 @@
         line-height: 1.55;
       }
       .phrase-trigger {
-        padding: 7px 10px;
+        padding: 9px 14px;
         background: white;
         border: 1px solid #e8e8f0;
         border-radius: 8px;
         display: flex;
         align-items: center;
-        gap: 7px;
+        gap: 8px;
       }
       .phrase-trigger .pt-icon {
         color: var(--accent);
-        font-size: 10px;
+        font-size: 13px;
+        font-weight: 700;
       }
       .phrase-trigger .pt-name {
         color: var(--accent);
-        font-weight: 600;
-        font-size: 12px;
+        font-weight: 700;
+        font-size: 14.5px;
         flex: 1;
       }
       .phrase-trigger .pt-actions {
         color: #ccc;
-        font-size: 10px;
+        font-size: 13px;
       }
       .phrase-arrow {
         color: #aaa;
-        font-size: 12px;
+        font-size: 14px;
         text-align: center;
       }
       .phrase-result {
-        padding: 7px 10px;
+        padding: 9px 14px;
         background: white;
         border: 1px solid #e8e8f0;
         border-radius: 8px;
-        font-size: 11px;
+        font-size: 13px;
         color: #333;
         display: flex;
         align-items: center;
@@ -824,14 +851,14 @@
         background: var(--card-bg);
         border: 1px solid var(--border);
         border-radius: var(--r);
-        padding: 20px;
+        padding: 40px 34px;
       }
       .style-demo-chrome {
         display: flex;
         align-items: center;
         gap: 6px;
         padding: 8px 10px;
-        margin: -20px -20px 14px;
+        margin: -40px -34px 28px;
         background: #f0f0f2;
         border-bottom: 1px solid #e0e0e6;
       }
@@ -842,9 +869,9 @@
         margin-bottom: 16px;
       }
       .sd-pill {
-        padding: 5px 14px;
+        padding: 6px 16px;
         border-radius: 20px;
-        font-size: 12px;
+        font-size: 13.5px;
         border: 1px solid var(--border-2);
         color: var(--text-2);
       }
@@ -857,13 +884,17 @@
       .sd-compare {
         display: grid;
         grid-template-columns: 3fr 2fr;
-        gap: 10px;
+        gap: 12px;
       }
       .sd-col {
-        padding: 12px 14px;
+        padding: 20px 24px;
         border-radius: 8px;
-        font-size: 12px;
-        line-height: 1.65;
+        font-size: 14.5px;
+        line-height: 1.7;
+        min-height: 140px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
       }
       .sd-col.raw {
         background: var(--section-bg);
@@ -908,13 +939,16 @@
         text-align: center;
       }
       .tr-bubble {
-        padding: 10px 14px;
+        padding: 16px 20px;
         border-radius: 8px;
         background: var(--card-bg);
         border: 1px solid var(--border);
-        font-size: 12px;
+        font-size: 13px;
         line-height: 1.5;
         flex: 1;
+        min-height: 56px;
+        display: flex;
+        align-items: center; /* 让单行垂直居中，多行自然分布 */
       }
       .tr-bubble.result {
         background: var(--blue-dim);
@@ -1893,6 +1927,7 @@
         overflow: hidden;
         white-space: nowrap;
         clip-path: inset(0 100% 0 0);
+        font-weight: bold;
       }
       #recording.recording-started .rec-live-line.raw .rec-live-content {
         animation: rec-type-raw 5.2s steps(26, end) forwards;
@@ -2180,8 +2215,7 @@
       }
       .vscode-screens .vs-screen-card:nth-child(1),
       .vscode-screens .vs-screen-card:nth-child(3) {
-        width: 92%;
-        justify-self: center;
+        width: 100%;
         margin-top: 32px;
       }
       .vscode-screens .vs-screen-card:nth-child(2) {
@@ -2191,16 +2225,16 @@
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-        min-height: 245px;
+        min-height: 280px;
       }
       .vscode-screens .vs-screen-card:nth-child(1) .vs-app-window,
       .vscode-screens .vs-screen-card:nth-child(3) .vs-app-window {
-        min-height: 220px;
+        min-height: 260px;
       }
       .vscode-screens .vs-screen-card:nth-child(2) .vs-app-window {
         display: flex;
         flex-direction: column;
-        min-height: 276px;
+        min-height: 340px;
         box-shadow: 0 14px 40px rgba(0,0,0,0.24);
       }
       .vscode-screens .vs-screen-card:nth-child(2) .vs-app-window video {
@@ -3090,7 +3124,7 @@
         </a>
         <ul class="nav-links">
           <li><a href="#hero">主页</a></li>
-          <li><a href="#overview">功能概览</a></li>
+          <li><a href="#overview">概览</a></li>
           <li><a href="#demo">应用演示</a></li>
           <li><a href="#recording">详情介绍</a></li>
           <li><a href="#faq">常见问题</a></li>
@@ -3328,7 +3362,7 @@
     <section class="overview-section" id="overview">
       <div class="container">
         <div class="ovr-heading reveal">
-          <div class="ovr-tag">功能</div>
+          <div class="ovr-tag">功能概览</div>
           <h2 class="ovr-title">言墨实现了什么</h2>
           <p class="ovr-sub">从语音到输出，每一环节都经过打磨。</p>
         </div>
@@ -3581,7 +3615,7 @@
                 <span style="width:10px;height:10px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
                 <span style="width:10px;height:10px;border-radius:50%;background:#28c840;display:inline-block;"></span>
               </div>
-              <div style="min-height:200px;padding:14px 16px;font-size:12px;color:#333;line-height:1.7;font-family:monospace;background:rgb(247, 248, 252);">
+              <div style="min-height:240px;padding:14px 16px;font-size:12px;color:#333;line-height:1.7;font-family:monospace;background:rgb(247, 248, 252);">
                 <div>
                   <div style="display:flex;align-items:center;gap:5px;font-weight:600;color:#555;margin-bottom:4px;">
                     <span style="width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;background:#e5e7eb;border-radius:4px;color:#4b5563;">🎙</span> 语音输入
@@ -3682,19 +3716,19 @@
                       <span style="font-size:10px;background:var(--accent);color:#fff;border-radius:20px;padding:2px 9px;font-weight:600;">默认</span>
                       <span style="font-size:10px;background:rgba(26,20,16,0.07);color:var(--text-2);border-radius:20px;padding:2px 9px;">简洁</span>
                       <span style="font-size:10px;background:rgba(26,20,16,0.07);color:var(--text-2);border-radius:20px;padding:2px 9px;">正式</span>
-                      <span style="font-size:10px;background:rgba(26,20,16,0.07);color:var(--text-2);border-radius:20px;padding:2px 9px;">自定义…</span>
+                      <span style="font-size:10px;background:rgba(26,20,16,0.07);color:var(--text-2);border-radius:20px;padding:2px 9px;">自定义</span>
                     </div>
                   </div>
                   <div style="padding:14px 16px;font-size:13px;color:var(--text);line-height:1.7;">
                     <div class="rec-result-stack">
                       <div class="rec-live-text">
                         <div class="rec-live-line raw">
-                          <span class="rec-line-tag">原始</span>
-                          <span class="rec-live-content">那个，嗯，就是把那个数组啊，遍历一下。</span>
+                          <span class="rec-line-tag" style="font-weight: 500">原始</span>
+                          <span class="rec-live-content" style="font-weight: 500">那个，嗯，就是把那个数组啊，遍历一下。</span>
                         </div>
                         <div class="rec-live-line polish">
-                          <span class="rec-line-tag">润色</span>
-                          <span class="rec-live-content">遍历数组，并过滤掉其中的空值。</span>
+                          <span class="rec-line-tag" style="font-weight: 600">润色</span>
+                          <span class="rec-live-content" style="font-weight: 600">遍历数组，并过滤掉其中的空值。</span>
                         </div>
                       </div>
                     </div>
@@ -3849,36 +3883,41 @@
               <div class="win-chrome">
                 <span class="wc-dot wc-r"></span><span class="wc-dot wc-y"></span><span class="wc-dot wc-g"></span>
               </div>
-              <div class="win-body" style="flex:1;min-height:0;display:flex;flex-direction:column;gap:0;padding:20px 22px;overflow:hidden">
-                <div style="margin-bottom:18px">
-                  <div style="font-size:11px;font-weight:600;color:var(--accent);letter-spacing:.06em;margin-bottom:6px">🔍 情景感知</div>
-                  <div style="font-size:12px;color:#3d3530;background:rgba(26,20,16,.04);border:1px solid rgba(26,20,16,.1);border-radius:8px;padding:10px 12px;line-height:1.7">
-                    <span style="color:#1a1410;font-weight:500">当前光标上文：</span>「我们需要优化 <span style="color:#2563eb">SQLite</span> 查询…」<br/>
-                    <span style="color:#1a1410;font-weight:500">语音输入：</span>「加一个索引」<br/>
-                    <span style="color:#16a34a;font-weight:500">→ 补全输出：</span>「为 <span style="color:#2563eb">user_id</span> 字段创建索引以提升查询性能」
-                  </div>
-                </div>
-                <div style="margin-bottom:18px">
-                  <div style="font-size:11px;font-weight:600;color:var(--accent);letter-spacing:.06em;margin-bottom:6px">🔄 动态修正</div>
-                  <div style="font-size:12px;color:#3d3530;background:rgba(26,20,16,.04);border:1px solid rgba(26,20,16,.1);border-radius:8px;padding:10px 12px;line-height:1.7">
-                    <span style="color:#1a1410;font-weight:500">说：</span>「发送邮件给张三」<span style="opacity:.5;margin:0 6px">→</span><span style="text-decoration:line-through;opacity:.4">发送邮件给张三</span><br/>
-                    <span style="color:#1a1410;font-weight:500">重述：</span>「不对，发送给李四」<br/>
-                    <span style="color:#16a34a;font-weight:500">→ 最终输出：</span>「发送邮件给李四」
-                  </div>
-                </div>
+              <div class="win-body" style="flex:1;min-height:0;display:flex;flex-direction:column;gap:20px;padding:24px 32px;overflow-y:auto">
+                <!-- 1. 情景感知 -->
                 <div>
-                  <div style="font-size:11px;font-weight:600;color:var(--accent);letter-spacing:.06em;margin-bottom:8px">📖 自定义词典</div>
-                  <div style="font-size:12px;color:#3d3530;background:rgba(26,20,16,.04);border:1px solid rgba(26,20,16,.1);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:10px">
-                    <div style="display:flex;align-items:center;gap:8px">
-                      <span style="background:#f0ede8;border:1px solid rgba(26,20,16,.15);border-radius:6px;padding:3px 10px;white-space:nowrap;color:#1a1410;font-weight:500">Claude Code</span>
-                      <div style="color:#7a6e65;font-size:11px"></div>
+                  <div style="font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;opacity:0.9">🔍 情景感知</div>
+                  <div style="font-size:13px;color:#3d3530;background:rgba(26,20,16,.04);border:1px solid rgba(26,20,16,.1);border-radius:10px;padding:14px 16px;line-height:1.75">
+                    <div style="margin-bottom:4px"><span style="color:#1a1410;font-weight:600;margin-right:4px">当前光标上文：</span><span style="color:#666">「我们需要优化 <span style="color:#2563eb;font-weight:500">SQLite</span> 查询…」</span></div>
+                    <div style="margin-bottom:4px"><span style="color:#1a1410;font-weight:600;margin-right:4px">语音输入：</span>「加一个索引」</div>
+                    <div><span style="color:#16a34a;font-weight:600;margin-right:4px">→ 补全输出：</span>「为 <span style="color:#2563eb;font-weight:500">user_id</span> 字段创建索引以提升查询性能」</div>
+                  </div>
+                </div>
+
+                <!-- 2. 动态修正 -->
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;opacity:0.9">🔄 动态修正</div>
+                  <div style="font-size:13px;color:#3d3530;background:rgba(26,20,16,.04);border:1px solid rgba(26,20,16,.1);border-radius:10px;padding:14px 16px;line-height:1.75">
+                    <div style="margin-bottom:4px"><span style="color:#1a1410;font-weight:600;margin-right:4px">说：</span>「发送邮件给张三」<span style="opacity:.4;margin:0 8px">→</span><span style="text-decoration:line-through;opacity:.5;color:#999">发送邮件给张三</span></div>
+                    <div style="margin-bottom:4px"><span style="color:#1a1410;font-weight:600;margin-right:4px">重述：</span>「不对，发送给李四」</div>
+                    <div><span style="color:#16a34a;font-weight:600;margin-right:4px">→ 最终输出：</span>「发送邮件给李四」</div>
+                  </div>
+                </div>
+
+                <!-- 3. 自定义词典 -->
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;opacity:0.9">📖 自定义词典</div>
+                  <div style="font-size:12px;color:#3d3530;background:rgba(26,20,16,.04);border:1px solid rgba(26,20,16,.1);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:10px">
+                    <div style="display:flex;align-items:center;gap:10px">
+                      <span style="background:#fff;border:1px solid rgba(26,20,16,.12);border-radius:6px;padding:4px 12px;white-space:nowrap;color:#1a1410;font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,0.03)">Claude Code</span>
+                      <span style="height:1px;flex:1;background:rgba(26,20,16,.08)"></span>
                     </div>
-                    <div style="border-top:1px solid rgba(26,20,16,.08);padding-top:8px;display:flex;flex-direction:column;gap:7px">
-                      <div style="font-size:11px;color:#1a1410;font-weight:600">识别质量对比（添加词典前后）</div>
-                      <div style="font-size:11px;color:#7a6e65;line-height:1.65">
-                         <span style="color:#1a1410;font-weight:600">原文: Claude Code 是一个很好用的代码 agent</span>
-                        <span style="display:block"><span style="color:#b45309;font-weight:600">添加前：</span> 识别为「<span style="font-weight:700;color:#b45309">Cloud Code（云代码）</span> 是一个很好用的代码 agent」。</span>
-                        <span style="display:block"><span style="color:#16a34a;font-weight:600">添加后：</span> 准确识别「<span style="font-weight:700;color:#16a34a">Claude Code</span> 是一个很好用的代码 agent」。</span>
+                    <div style="display:flex;flex-direction:column;gap:8px">
+                      <div style="font-size:11px;color:#666;font-weight:600">识别质量对比（添加词典前后）</div>
+                      <div style="font-size:12px;color:#555;line-height:1.7;display:flex;flex-direction:column;gap:3px">
+                         <div style="margin-bottom:2px"><span style="color:#1a1410;font-weight:600">原文: </span>Claude Code 是一个很好用的代码 agent</div>
+                        <div><span style="color:#b45309;font-weight:600;margin-right:4px">添加前：</span> 识别为「<span style="font-weight:700;color:#b45309;background:rgba(180,83,9,0.08);padding:0 3px;border-radius:3px">Cloud Code（云代码）</span> 是一个很好用的代码 agent」</div>
+                        <div><span style="color:#16a34a;font-weight:600;margin-right:4px">添加后：</span> 准确识别「<span style="font-weight:700;color:#16a34a;background:rgba(22,163,74,0.08);padding:0 3px;border-radius:3px">Claude Code</span> 是一个很好用的代码 agent」</div>
                       </div>
                     </div>
                   </div>
@@ -3910,9 +3949,9 @@
               </div>
               <div
                 style="
-                  font-size: 11px;
+                  font-size: 13px;
                   color: var(--text-2);
-                  margin-bottom: 10px;
+                  margin-bottom: 12px;
                   font-weight: 600;
                   text-transform: uppercase;
                   letter-spacing: 0.08em;
@@ -3930,9 +3969,9 @@
               </div>
               <div
                 style="
-                  font-size: 11px;
+                  font-size: 13px;
                   color: var(--text-2);
-                  margin: 16px 0 10px;
+                  margin: 20px 0 12px;
                   font-weight: 600;
                   text-transform: uppercase;
                   letter-spacing: 0.08em;
@@ -3943,7 +3982,7 @@
               <div class="sd-compare">
                 <div class="sd-col raw">
                   <div class="sd-label l-raw">原始口述</div>
-                  那个嗯就是把那个数组啊遍历一下然后呢把空的那些过滤掉
+                  那个，嗯，就是把那个数组啊，遍历一下，然后呢，把空的那些过滤掉
                 </div>
                 <div class="sd-col polish">
                   <div class="sd-label l-polish">✨ AI 润色后</div>
@@ -3952,14 +3991,14 @@
               </div>
               <div
                 style="
-                  margin-top: 16px;
-                  padding: 14px;
+                  margin-top: 20px;
+                  padding: 16px;
                   background: rgba(46, 124, 246, 0.08);
                   border: 1px solid rgba(46, 124, 246, 0.18);
                   border-radius: 10px;
                 "
               >
-                <div style="font-size: 11px; color: #79b8ff; font-weight: 600; margin-bottom: 10px">
+                <div style="font-size: 13px; color: #79b8ff; font-weight: 600; margin-bottom: 12px">
                   翻译功能（底部下拉选择目标语言）
                 </div>
                 <div class="translate-demo">
@@ -3994,7 +4033,7 @@
             </ul>
           </div>
           <div class="feat-visual reveal">
-            <div class="app-window" style="height: 440px">
+            <div class="app-window" style="height: auto; min-height: 480px">
               <div class="win-chrome">
                 <span class="wc-dot wc-r"></span><span class="wc-dot wc-y"></span><span class="wc-dot wc-g"></span>
               </div>
@@ -4049,7 +4088,7 @@
                         <span class="pt-actions">✏ 🗑</span>
                       </div>
                       <div class="phrase-arrow">→</div>
-                      <div class="phrase-result">感谢您的来信。请问有什么我可以帮助您？ <span style="color: #bbb; font-size: 10px">✏</span></div>
+                      <div class="phrase-result">感谢您的来信。请问有什么可以帮助您？ <span style="color: #bbb; font-size: 13px">✏</span></div>
                     </div>
                     <div class="phrase-row demo-step s2">
                       <div class="phrase-trigger">
@@ -4058,7 +4097,7 @@
                         <span class="pt-actions">✏ 🗑</span>
                       </div>
                       <div class="phrase-arrow">→</div>
-                      <div class="phrase-result">Personal@outlook.com <span style="color: #bbb; font-size: 10px">✏</span></div>
+                      <div class="phrase-result">Personal@outlook.com <span style="color: #bbb; font-size: 13px">✏</span></div>
                     </div>
                     <div class="phrase-row demo-step s3">
                       <div class="phrase-trigger">
@@ -4067,21 +4106,21 @@
                         <span class="pt-actions">✏ 🗑</span>
                       </div>
                       <div class="phrase-arrow">→</div>
-                      <div class="phrase-result">北京市海淀区丹棱街5号 <span style="color: #bbb; font-size: 10px">✏</span></div>
+                      <div class="phrase-result">北京市海淀区丹棱街5号 <span style="color: #bbb; font-size: 13px">✏</span></div>
                     </div>
                   </div>
                    <div
                     class="win-header"
-                    style="display: flex; justify-content: flex-end; padding: 8px 16px 6px"
+                    style="display: flex; justify-content: flex-end; padding: 12px 24px 8px"
                   >
                     <div
                       style="
-                        padding: 5px 12px;
+                        padding: 7px 16px;
                         background: #1a1a2e;
                         color: white;
-                        border-radius: 7px;
-                        font-size: 10px;
-                        font-weight: 600;
+                        border-radius: 9px;
+                        font-size: 13px;
+                        font-weight: 700;
                         cursor: default;
                       "
                     >
@@ -4089,35 +4128,35 @@
                     </div>
                   </div>
 
-                  <div style="margin: 0 16px 10px; border-radius: 9px; overflow: hidden; border: 1px solid rgba(255,255,255,.08)">
-                    <div style="font-size: 10px; color: var(--text-3); padding: 6px 10px 5px; background: rgba(255,255,255,.03); border-bottom: 1px solid rgba(255,255,255,.06); display: flex; align-items: center; gap: 5px">
-                      <span style="width: 6px; height: 6px; border-radius: 50%; background: #f87171; display: inline-block; animation: pulseRed 1.4s ease-in-out infinite"></span>
+                  <div style="margin: 0 24px 20px; display: flex; flex-direction: column; gap: 8px">
+                    <div style="font-size: 13px; color: var(--text-3); padding: 0 4px; display: flex; align-items: center; gap: 8px">
+                      <span style="width: 8px; height: 8px; border-radius: 50%; background: #f87171; display: inline-block; animation: pulseRed 1.4s ease-in-out infinite"></span>
                       实时识别中…
                     </div>
-                    <div style="padding: 10px 12px; font-size: 12px; line-height: 1.6; color: rgba(255,255,255,.85); background: rgba(0,0,0,.55); min-height: 96px; position: relative; border-radius: 10px">
+                    <div style="padding: 16px 20px; font-size: 14.5px; line-height: 1.6; color: rgba(255,255,255,.85); background: rgba(0,0,0,.55); border-radius: 12px; min-height: 120px; position: relative">
                       <span style="animation: phraseP1a 14s linear infinite">
                         下午好，我想发一封邮件，<span style="color:#fbbf24;background:rgba(251,191,36,.12);border-radius:3px;padding:0 2px">问好</span>
                       </span>
-                      <span style="animation: phraseP1b 14s linear infinite; position: absolute; left: 12px; top: 10px; right: 12px; opacity: 0">
+                      <span style="animation: phraseP1b 14s linear infinite; position: absolute; left: 20px; top: 16px; right: 20px; opacity: 0">
                         下午好，我想发一封邮件，<span style="color:#86efac">感谢您的来信。请问有什么我可以帮助您？</span>
                       </span>
-                      <span style="animation: phraseP2a 14s linear infinite; position: absolute; left: 12px; top: 10px; right: 12px; opacity: 0">
+                      <span style="animation: phraseP2a 14s linear infinite; position: absolute; left: 20px; top: 16px; right: 20px; opacity: 0">
                         好的，您可以把文件发到<span style="color:#fbbf24;background:rgba(251,191,36,.12);border-radius:3px;padding:0 2px">我的个人邮箱</span>
                       </span>
-                      <span style="animation: phraseP2b 14s linear infinite; position: absolute; left: 12px; top: 10px; right: 12px; opacity: 0">
+                      <span style="animation: phraseP2b 14s linear infinite; position: absolute; left: 20px; top: 16px; right: 20px; opacity: 0">
                         好的，您可以把文件发到<span style="color:#86efac">Personal@outlook.com</span>
                       </span>
-                      <span style="animation: phraseP3a 14s linear infinite; position: absolute; left: 12px; top: 10px; right: 12px; opacity: 0">
-                        欢迎来访，<span style="color:#fbbf24;background:rgba(251,191,36,.12);border-radius:3px;padding:0 2px">我们的地址</span>在
+                      <span style="animation: phraseP3a 14s linear infinite; position: absolute; left: 20px; top: 16px; right: 20px; opacity: 0">
+                        欢迎来访，<span style="color:#fbbf24;background:rgba(251,191,36,.12);border-radius:3px;padding:0 2px">我们的地址</span>
                       </span>
-                      <span style="animation: phraseP3b 14s linear infinite; position: absolute; left: 12px; top: 10px; right: 12px; opacity: 0">
+                      <span style="animation: phraseP3b 14s linear infinite; position: absolute; left: 20px; top: 16px; right: 20px; opacity: 0">
                         欢迎来访，<span style="color:#86efac">北京市海淀区丹棱街5号</span>，期待您的到来！
                       </span>
                     </div>
-                    <div style="font-size: 10px; padding: 4px 10px; border-top: 1px solid rgba(134,239,172,.12); position: relative; min-height: 30px; background: rgba(134,239,172,.04)">
-                      <span style="position: absolute; left: 10px; top: 4px; color: var(--accent); font-weight: 600; background: rgba(122,58,16,.08); border: 1px solid rgba(122,58,16,.2); border-radius: 4px; padding: 1px 6px; text-shadow: none; animation: phraseHint1 14s linear infinite; opacity: 0">⚡ 快捷词「问好」已展开</span>
-                      <span style="position: absolute; left: 10px; top: 4px; color: var(--accent); font-weight: 600; background: rgba(122,58,16,.08); border: 1px solid rgba(122,58,16,.2); border-radius: 4px; padding: 1px 6px; text-shadow: none; animation: phraseHint2 14s linear infinite; opacity: 0">⚡ 快捷词「我的个人邮箱」已展开</span>
-                      <span style="position: absolute; left: 10px; top: 4px; color: var(--accent); font-weight: 600; background: rgba(122,58,16,.08); border: 1px solid rgba(122,58,16,.2); border-radius: 4px; padding: 1px 6px; text-shadow: none; animation: phraseHint3 14s linear infinite; opacity: 0">⚡ 快捷词「我们的地址」已展开</span>
+                    <div style="font-size: 12px; padding: 0 4px; position: relative; min-height: 24px">
+                      <span style="position: absolute; left: 0; top: 0; color: var(--accent); font-weight: 600; background: rgba(122,58,16,.08); border: 1px solid rgba(122,58,16,.2); border-radius: 4px; padding: 2px 8px; text-shadow: none; animation: phraseHint1 14s linear infinite; opacity: 0">⚡ 快捷词「问好」已展开</span>
+                      <span style="position: absolute; left: 0; top: 0; color: var(--accent); font-weight: 600; background: rgba(122,58,16,.08); border: 1px solid rgba(122,58,16,.2); border-radius: 4px; padding: 2px 8px; text-shadow: none; animation: phraseHint2 14s linear infinite; opacity: 0">⚡ 快捷词「我的个人邮箱」已展开</span>
+                      <span style="position: absolute; left: 0; top: 0; color: var(--accent); font-weight: 600; background: rgba(122,58,16,.08); border: 1px solid rgba(122,58,16,.2); border-radius: 4px; padding: 2px 8px; text-shadow: none; animation: phraseHint3 14s linear infinite; opacity: 0">⚡ 快捷词「我们的地址」已展开</span>
                     </div>
                   </div>
 
@@ -4148,19 +4187,19 @@
             </ul>
           </div>
           <div class="feat-visual reveal">
-            <div class="app-window" style="height: 460px">
+            <div class="app-window" style="height: 580px">
               <div class="win-chrome">
                 <span class="wc-dot wc-r"></span><span class="wc-dot wc-y"></span><span class="wc-dot wc-g"></span>
               </div>
-              <div class="win-body" style="flex:1;min-height:0;padding:20px 18px;display:flex;flex-direction:column;gap:14px;overflow-y:auto">
-                <div style="font-size:11px;color:var(--text-2);font-weight:600;text-transform:uppercase;letter-spacing:.08em">命令示例</div>
+              <div class="win-body" style="flex:1;min-height:0;padding:24px 22px;display:flex;flex-direction:column;gap:18px;overflow-y:auto">
+                <div style="font-size:13px;color:var(--text-2);font-weight:600;text-transform:uppercase;letter-spacing:.08em">命令示例</div>
 
                 <!-- 示例 1：转表格 -->
-                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:14px 16px">
-                  <div style="font-size:11px;color:var(--text-2);margin-bottom:8px;font-weight:600">🎙 语音输入</div>
-                  <div style="font-size:13px;color:var(--text-1);margin-bottom:12px">"姓名张三年龄28职位工程师，帮我整理成表格"</div>
-                  <div style="font-size:11px;color:#7ee787;margin-bottom:6px;font-weight:600">⌘ 执行结果</div>
-                  <div style="font-family:monospace;font-size:12px;color:var(--text-1);line-height:1.8;background:rgba(0,0,0,0.3);border-radius:6px;padding:10px 12px">
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:18px 20px">
+                  <div style="font-size:13px;color:var(--text-2);margin-bottom:10px;font-weight:600">🎙 语音输入</div>
+                  <div style="font-size:14.5px;color:var(--text-1);margin-bottom:14px">"姓名张三年龄28职位工程师，帮我整理成表格"</div>
+                  <div style="font-size:13px;color:#7ee787;margin-bottom:8px;font-weight:600">⌘ 执行结果</div>
+                  <div style="font-family:monospace;font-size:13px;color:var(--text-1);line-height:1.8;background:rgba(0,0,0,0.3);border-radius:8px;padding:12px 14px">
                     | 姓名 | 年龄 | 职位 |<br />
                     |------|------|------|<br />
                     | 张三 |  28   | 工程师 |
@@ -4168,13 +4207,13 @@
                 </div>
 
                 <!-- 示例 2：检索诗词 -->
-                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:14px 16px">
-                  <div style="font-size:11px;color:var(--text-2);margin-bottom:8px;font-weight:600">🎙 语音输入</div>
-                  <div style="font-size:13px;color:var(--text-1);margin-bottom:12px">"查一句李白写月亮的诗"</div>
-                  <div style="font-size:11px;color:#7ee787;margin-bottom:6px;font-weight:600">⌘ 匹配结果</div>
-                  <div style="font-size:13px;color:#e8c97a;font-style:italic;padding:8px 12px;background:rgba(232,201,122,0.06);border-left:2px solid rgba(232,201,122,0.4);border-radius:0 6px 6px 0">
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:18px 20px">
+                  <div style="font-size:13px;color:var(--text-2);margin-bottom:10px;font-weight:600">🎙 语音输入</div>
+                  <div style="font-size:14.5px;color:var(--text-1);margin-bottom:14px">"查一句李白写月亮的诗"</div>
+                  <div style="font-size:13px;color:#7ee787;margin-bottom:8px;font-weight:600">⌘ 匹配结果</div>
+                  <div style="font-size:14.5px;color:#e8c97a;font-style:italic;padding:10px 14px;background:rgba(232,201,122,0.06);border-left:3px solid rgba(232,201,122,0.4);border-radius:0 8px 8px 0">
                     举头望明月，低头思故乡。<br />
-                    <span style="font-size:11px;color:var(--text-2);font-style:normal">—— 李白《静夜思》</span>
+                    <span style="font-size:13px;color:var(--text-2);font-style:normal">—— 李白《静夜思》</span>
                   </div>
                 </div>
               </div>
@@ -4199,7 +4238,7 @@
             </ul>
           </div>
           <div class="feat-visual reveal">
-            <div class="app-window" style="height: 460px">
+            <div class="app-window" style="height: 580px">
               <div class="win-chrome">
                 <span class="wc-dot wc-r"></span><span class="wc-dot wc-y"></span><span class="wc-dot wc-g"></span>
               </div>
@@ -4259,7 +4298,7 @@
                     </div>
                     <div class="hist-item">
                       <div class="hist-meta">2026-02-12 15:50:39 <span class="hist-sep">|</span> 18 字</div>
-                      <div class="hist-text">你好，帮我识别一下我现在要做的事情。</div>
+                      <div class="hist-text">帮我快速生成一个会议邀请邮件。</div>
                     </div>
                     <div class="hist-item">
                       <div class="hist-meta">2026-01-21 17:05:18 <span class="hist-sep">|</span> 3 字</div>
@@ -4456,14 +4495,14 @@
           <details class="faq-item reveal">
             <summary>如何配置 Azure 语音凭据？</summary>
             <p>
-              打开应用设置，搜索 <code>yanmo</code>，填入您的 Azure Speech Service
+              打开应用设置，搜索 「 言墨 」 ，填入您的 Azure Speech Service
               密钥与区域即可。
             </p>
           </details>
           <details class="faq-item reveal">
             <summary>识别延迟大概是多少？</summary>
             <p>
-              语音识别采用流式返回，通常说完后即可看到结果。网络状况良好时，实时字幕几乎与说话同步，整体延迟极低。
+              语音识别采用流式处理，通常说完期间即可看到识别结果。网络状况良好时，实时字幕几乎与说话同步，整体延迟较低。
             </p>
           </details>
           <details class="faq-item reveal">
@@ -4475,9 +4514,7 @@
           <details class="faq-item reveal">
             <summary>识别结果如何插入到编辑器？</summary>
             <p>
-              识别完成后，文字会自动插入到当前光标所在位置，行为与普通键盘输入一致。同时支持通过命令面板（<kbd
-                >Ctrl/Cmd + Shift + P</kbd
-              >）调用「言墨：开始识别」随时触发。
+              识别完成后，文字会自动插入到当前光标所在位置，行为与普通键盘输入一致。同时支持通过自定义快捷调用「言墨」命令模式，随时随地可触发言墨悬浮窗进行语音识别。
             </p>
           </details>
         </div>
@@ -4492,7 +4529,7 @@
           <p class="final-quote ink-seal">言墨</p>
           <h2>开口，即是写作。</h2>
           <p class="final-sub">数千名创作者与开发者，将声音变成您最趁手的创作工具。</p>
-          <a href="#" class="btn-primary btn-lg">立即下载</a>
+          <a href="#hero" class="btn-primary btn-lg">立即下载</a>
         </div>
       </div>
     </section>
