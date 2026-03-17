@@ -88,15 +88,60 @@ body {
 
 /* ---- Utility ---- */
 .container {
-  max-width: var(--container-w);
+  /* 使用自适应宽度逻辑：
+     1. 默认最大宽度 1200px（适配大屏）。
+     2. 设置 min(100%, ...) 确保不溢出。
+     3. 引入 clamp 或百分比逻辑，在中小屏幕（如13寸 1280/1440）自动缩小。
+  */
+  width: min(92vw, 1200px);
   margin: 0 auto;
-  padding: 0 32px;
+  /* 移除固定 padding，改用更灵活的空间控制 */
 }
 
+/* 统一管理 Section 尺寸和自适应缩放 */
 section {
   position: relative;
   z-index: 1;
   scroll-snap-align: center;
+  /* 确保每页内容尽量在视口内展示完全 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* 如果内容过多超出，允许内容撑开高度，但通常保持 100vh 体验最好 */
+  min-height: 100vh;
+  /* 针对小屏幕（高度较小）的适配：增加上下内边距，防止贴边 */
+  padding: 80px 0;
+}
+
+/* 针对13寸笔记本/小高度屏幕的媒体查询 */
+@media (max-width: 1440px), (max-height: 800px) {
+  :root {
+    /* 缩小基础间距，让内容更紧凑 */
+    --section-gap: 80px;
+    --radius-xl: 32px;
+  }
+  
+  /* 整体缩放整个页面内容（简单粗暴且有效的适配方案） */
+  body {
+    font-size: 0.95em; /* 轻微缩小字体基准 */
+  }
+
+  .hero-title {
+    font-size: clamp(48px, 8vw, 84px); /* 缩小大标题 */
+  }
+  
+  /* 缩小样机窗口尺寸，防止爆屏 */
+  .app-window, 
+  .style-demo,
+  .vsc-editor-window {
+    transform-origin: center center;
+    transform: scale(0.92); /* 整体等比缩小 */
+  }
+
+  /* 减小 Grid 布局的间隙 */
+  .feat-wrap {
+    gap: 60px; 
+  }
 }
 
 /* ---- Reveal Animations ---- */
