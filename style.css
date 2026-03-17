@@ -61,8 +61,9 @@ body {
   font-weight: 300;
   line-height: 1.75;
   height: 100%;
+  min-width: 1200px;
   overflow-y: scroll;
-  overflow-x: hidden;
+  overflow-x: auto;
   scroll-snap-type: y proximity; /* 改为 proximity，吸附力度更柔和 */
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
@@ -88,14 +89,8 @@ body {
 
 /* ---- Utility ---- */
 .container {
-  /* 使用自适应宽度逻辑：
-     1. 默认最大宽度 1200px（适配大屏）。
-     2. 设置 min(100%, ...) 确保不溢出。
-     3. 引入 clamp 或百分比逻辑，在中小屏幕（如13寸 1280/1440）自动缩小。
-  */
-  width: min(92vw, 1200px);
+  width: 1200px;
   margin: 0 auto;
-  /* 移除固定 padding，改用更灵活的空间控制 */
 }
 
 /* 统一管理 Section 尺寸和自适应缩放 */

@@ -724,12 +724,24 @@
         display: flex;
         flex-direction: column;
         gap: 12px;
+        overflow-x: auto;
       }
       .phrase-row {
         display: grid;
         grid-template-columns: 1fr 24px 1fr;
         align-items: center;
         gap: 8px;
+        min-width: 420px;
+      }
+      .phrase-result {
+        padding: 9px 14px;
+        background: white;
+        border: 1px solid #e8e8f0;
+        border-radius: 8px;
+        font-size: 13px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .phrase-row.demo-step {
         opacity: 1;
@@ -781,6 +793,7 @@
         font-weight: 700;
         font-size: 14.5px;
         flex: 1;
+        white-space: nowrap;
       }
       .phrase-trigger .pt-actions {
         color: #ccc;
@@ -1032,7 +1045,7 @@
       /* STATS SHOWCASE */
       .stats-row {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(5, 1fr);
         gap: 14px;
         margin-top: 40px;
       }
@@ -1044,6 +1057,22 @@
         text-align: center;
         position: relative;
         overflow: hidden;
+      }
+      @media (max-width: 1024px) {
+        .stats-row {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      @media (max-width: 600px) {
+        .stats-row {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .stat-showcase {
+          padding: 18px 14px;
+        }
+        .ss-num {
+          font-size: 24px;
+        }
       }
       .stat-showcase::after {
         content: "";
@@ -1212,6 +1241,17 @@
           transform: scale(0.96);
           width: 104.1%; /* 100/0.96 ≈ 104.1 */
         }
+
+        /* 针对 13寸本（1280~1440）优化三屏 APP 展示 */
+        .vscode-screens {
+          gap: 16px;
+          transform: scale(0.92);
+          transform-origin: top center;
+          width: 108.7%; /* 100/0.92 */
+          margin-left: -4.35%;
+          margin-top: 32px;
+        }
+
         /* 让 App Window 保持原大小或轻微缩小，而不是被强制压到 100% 导致内部乱掉 */
         #recording .app-window,
         #polish .style-demo,
@@ -2309,26 +2349,33 @@
       }
       @media (max-width: 1180px) {
         .vscode-screens {
-          grid-template-columns: repeat(2, minmax(280px, 1fr));
+          /* 强制保持三列布局，整体缩放以适应屏幕 */
+          grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.36fr) minmax(0, 0.82fr);
+          gap: 12px;
+          margin-top: 24px;
+          /* 放大容器宽度并缩小比例，从而获得更多显示空间 */
+          width: 125%; 
+          margin-left: -12.5%;
+          transform: scale(0.8);
+          transform-origin: top center;
         }
-        .vscode-screens .vs-screen-card:nth-child(1),
-        .vscode-screens .vs-screen-card:nth-child(2),
-        .vscode-screens .vs-screen-card:nth-child(3) {
-          width: 100%;
-          justify-self: stretch;
-          margin-top: 0;
-          transform: none;
-        }
+        /* 移除原有的卡片样式重置，保持错落感 */
+        /* 仅微调高度以适应缩放后的布局 */
         .vscode-screens .vs-screen-card:nth-child(1) .vs-app-window,
         .vscode-screens .vs-screen-card:nth-child(2) .vs-app-window,
         .vscode-screens .vs-screen-card:nth-child(3) .vs-app-window {
-          min-height: 245px;
+          min-height: 240px;
           box-shadow: 0 8px 32px rgba(0,0,0,0.18);
         }
       }
       @media (max-width: 760px) {
         .vscode-screens {
-          grid-template-columns: 1fr;
+          /* 手机端进一步缩放，但仍保持三列 */
+          grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.36fr) minmax(0, 0.82fr);
+          width: 160%;
+          margin-left: -30%;
+          transform: scale(0.6);
+          gap: 8px;
         }
       }
       .vs-app-window img,
@@ -3175,6 +3222,87 @@
       #history,
       #faq { position: relative; overflow: hidden; }
 
+      @media (max-width: 1100px) {
+        .feat-wrap,
+        .feat-wrap.flip,
+        #recording .feat-wrap,
+        #polish .feat-wrap,
+        #command .feat-wrap,
+        #platform .feat-wrap,
+        #yanmo .feat-wrap.flip,
+        #history .feat-wrap.flip,
+        #phrases .feat-wrap.flip {
+          grid-template-columns: 100%;
+          gap: 56px;
+        }
+
+        .feat-text {
+          max-width: 100% !important;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .feat-wrap.flip .feat-text {
+          order: -1;
+          transform: none;
+        }
+        .feat-wrap:not(.flip) .feat-text {
+          transform: none;
+        }
+
+        .feat-visual {
+          width: 100%;
+          justify-content: center !important;
+          transform: none !important;
+        }
+
+        .feat-list {
+          align-self: center;
+          text-align: left;
+        }
+
+        .app-window,
+        #recording .app-window,
+        #platform .feat-visual > div,
+        #yanmo .app-window,
+        #history .app-window,
+        #polish .style-demo,
+        #command .app-window,
+        #phrases .app-window {
+          max-width: 100%;
+          width: 100%;
+        }
+
+        .container {
+          padding-left: 24px;
+          padding-right: 24px;
+        }
+
+        /* VS Code Section adjustments */
+        .vsc-body {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        .vsc-features {
+          grid-column: 1;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 20px;
+          width: 100%;
+          justify-self: stretch;
+          justify-content: center;
+        }
+        .vsc-panel {
+          height: auto;
+          min-height: 400px;
+        }
+        .vsc-feat-card {
+           width: 100%;
+        }
+      }
+
     </style>
   </head>
   <body>
@@ -3207,11 +3335,11 @@
           以声音驱动思想，以语言雕琢表达。
         </p>
         <div class="hero-download-btns reveal">
-          <a href="https://inkvoicesite.blob.core.windows.net/yanmowindows/Yanmo-v0.5.2-win-x64-setup.exe" class="btn-download-platform">
+          <a href="https://microsoftapc-my.sharepoint.com/:u:/g/personal/bingchenli_microsoft_com/IQBWhEej4Fw5Ra0mQcj6lFKFAdxBTW4s8x8jaQ957UHDjIA?e=pTw7hX" class="btn-download-platform">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
             下载 Windows 版
           </a>
-          <a href="https://inkvoicesite.blob.core.windows.net/yanmomac/Yanmo_v0.5.3.dmg" class="btn-download-platform" style="background:#005ea6;">
+          <a href="https://microsoftapc-my.sharepoint.com/:u:/g/personal/bingchenli_microsoft_com/IQBlRhzJc4aCTpcoY1dUWB45AVHT_wFfQyf4RwpDOQdEWxE?e=KwKcdC" class="btn-download-platform" style="background:#005ea6;">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>
             下载 Mac 版
           </a>
@@ -3461,7 +3589,7 @@
             <p class="oc-desc">一个词自动展开完整内容；自定义专有名词与生僻字，提高识别精准率，无需反复纠正。</p>
           </div>
         </div>
-        <div class="stats-row" style="grid-template-columns: repeat(5, 1fr);">
+        <div class="stats-row">
           <div class="stat-showcase reveal">
             <div class="ss-icon">🖥️</div>
             <div class="ss-num" style="color: #a78bfa">跨平台</div>
@@ -4088,7 +4216,7 @@
         <div class="feat-wrap flip">
           <div class="feat-text reveal">
             <div class="feat-tag">⚡ 快捷短语</div>
-            <h2 class="feat-title"><span style="display:block;white-space:nowrap;">快捷词触发，</span><span style="display:block;white-space:nowrap;">对应信息自动替换。</span></h2>
+            <h2 class="feat-title"><span style="display:block;">快捷词触发，</span><span style="display:block;">对应信息自动替换。</span></h2>
             <p class="feat-desc">将惯用语、签名、专业表述凝练为一个触发词。轻声一唤，完整内容即刻铺陈。</p>
             <ul class="feat-list">
               <li>自定义触发词与替换内容，数量不限</li>
