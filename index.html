@@ -108,6 +108,12 @@
           radial-gradient(ellipse 70% 55% at 85% 30%, rgba(30,77,122,0.06) 0%, transparent 65%),
           radial-gradient(ellipse 50% 45% at 15% 70%, rgba(42,92,58,0.045) 0%, transparent 60%);
       }
+      /* OpenClaw #openclaw 青金晕（训练=工坊） */
+      #openclaw {
+        background:
+          radial-gradient(ellipse 62% 56% at 82% 26%, rgba(14,92,87,0.08) 0%, transparent 66%),
+          radial-gradient(ellipse 46% 42% at 16% 72%, rgba(160,120,48,0.055) 0%, transparent 60%);
+      }
       /* 润色 #polish 温润纸墨 */
       #polish {
         background:
@@ -133,11 +139,13 @@
       #command .feat-tag { color: var(--blue); background: rgba(30,77,122,0.07); border-color: rgba(30,77,122,0.18); }
       #phrases .feat-tag { color: #a07830; background: rgba(160,120,48,0.07); border-color: rgba(160,120,48,0.18); }
       #platform .feat-tag { color: #6450a0; background: rgba(100,80,160,0.07); border-color: rgba(100,80,160,0.18); }
+      #openclaw .feat-tag { color: #0b6b61; background: rgba(11,107,97,0.07); border-color: rgba(11,107,97,0.18); }
       /* 各区域 feat-list bullet 染色 */
       #yanmo .feat-list li::before { color: var(--green); }
       #command .feat-list li::before { color: var(--blue); }
       #phrases .feat-list li::before { color: #a07830; }
       #platform .feat-list li::before { color: #6450a0; }
+      #openclaw .feat-list li::before { color: #0b6b61; }
 
       .feat-wrap {
         display: grid;
@@ -182,7 +190,8 @@
       #recording .feat-wrap,
       #polish .feat-wrap,
       #command .feat-wrap,
-      #platform .feat-wrap {
+      #platform .feat-wrap,
+      #openclaw .feat-wrap {
         grid-template-columns: minmax(0, 1fr) 680px;
       }
       #platform .feat-wrap {
@@ -202,6 +211,7 @@
       #polish .feat-visual,
       #command .feat-visual,
       #platform .feat-visual,
+      #openclaw .feat-visual,
       #yanmo .feat-visual,
       #history .feat-visual,
       #phrases .feat-visual {
@@ -213,7 +223,8 @@
         max-width: 680px;
       }
       #polish .style-demo,
-      #command .app-window {
+      #command .app-window,
+      #openclaw .app-window {
         width: 100%;
         max-width: 780px;
       }
@@ -241,7 +252,8 @@
         max-width: 560px;
       }
       #yanmo .app-window,
-      #history .app-window {
+      #history .app-window,
+      #openclaw .app-window {
         width: 100%;
         max-width: 780px;
       }
@@ -1189,6 +1201,512 @@
         object-fit: contain;
       }
 
+      .openclaw-window {
+        background: linear-gradient(180deg, #fdfcf9 0%, #f5f1eb 100%);
+      }
+      .openclaw-body {
+        display: grid;
+        grid-template-columns: 1.15fr 0.95fr;
+        gap: 18px;
+        padding: 20px;
+        background:
+          radial-gradient(circle at top right, rgba(11,107,97,0.08), transparent 38%),
+          linear-gradient(180deg, rgba(255,255,255,0.88), rgba(245,241,235,0.92));
+      }
+      .openclaw-column {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .openclaw-panel {
+        background: rgba(255,255,255,0.82);
+        border: 1px solid rgba(26,20,16,0.08);
+        border-radius: 14px;
+        padding: 16px;
+        box-shadow: 0 10px 24px rgba(26,20,16,0.05);
+      }
+      .openclaw-panel-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        font-size: 13px;
+        font-weight: 700;
+        color: #23343a;
+        margin-bottom: 12px;
+      }
+      .openclaw-pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 9px;
+        border-radius: 999px;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: rgba(11,107,97,0.08);
+        color: #0b6b61;
+      }
+      .openclaw-flow {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .openclaw-step {
+        min-height: 104px;
+        border-radius: 12px;
+        border: 1px solid rgba(11,107,97,0.12);
+        background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(243,249,248,0.96));
+        padding: 12px;
+      }
+      .openclaw-step-label {
+        font-size: 11px;
+        color: #0b6b61;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .openclaw-step-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: #1a1410;
+        margin-bottom: 6px;
+      }
+      .openclaw-step-desc {
+        font-size: 12px;
+        line-height: 1.6;
+        color: #6b625a;
+      }
+      .openclaw-input-card {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 14px;
+        border-radius: 12px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,247,243,0.94));
+        border: 1px solid rgba(160,120,48,0.14);
+      }
+      .openclaw-quote {
+        font-family: var(--serif);
+        font-size: 18px;
+        line-height: 1.55;
+        color: #1f1914;
+      }
+      .openclaw-meta {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .openclaw-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 10px;
+        border-radius: 999px;
+        font-size: 11px;
+        color: #5d564f;
+        background: rgba(26,20,16,0.05);
+      }
+      .openclaw-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .openclaw-stat {
+        border-radius: 12px;
+        padding: 12px 13px;
+        background: rgba(11,107,97,0.06);
+        border: 1px solid rgba(11,107,97,0.12);
+      }
+      .openclaw-stat-label {
+        font-size: 11px;
+        color: #0b6b61;
+        margin-bottom: 6px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      .openclaw-stat-value {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1a1410;
+      }
+      .openclaw-train-card {
+        position: relative;
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 18px;
+        border-radius: 16px;
+        background: linear-gradient(160deg, rgba(11,107,97,0.12), rgba(255,255,255,0.92));
+        border: 1px solid rgba(11,107,97,0.16);
+        overflow: hidden;
+      }
+      .openclaw-train-card::after {
+        content: "";
+        position: absolute;
+        right: -44px;
+        top: -40px;
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(160,120,48,0.18), transparent 70%);
+      }
+      .openclaw-train-header {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .openclaw-model-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 62px;
+        height: 62px;
+        border-radius: 18px;
+        background: rgba(11,107,97,0.16);
+        color: #0b6b61;
+        font-size: 24px;
+      }
+      .openclaw-train-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #17322e;
+      }
+      .openclaw-train-sub {
+        font-size: 12px;
+        color: #5f6d6a;
+        margin-top: 4px;
+      }
+      .openclaw-timeline {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .openclaw-timeline-item {
+        display: grid;
+        grid-template-columns: 18px minmax(0, 1fr);
+        gap: 10px;
+        align-items: start;
+      }
+      .openclaw-timeline-dot {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        margin-top: 1px;
+        background: radial-gradient(circle at 35% 35%, #d6f2ef, #0b6b61);
+        box-shadow: 0 0 0 4px rgba(11,107,97,0.08);
+      }
+      .openclaw-timeline-text strong {
+        display: block;
+        font-size: 13px;
+        color: #17322e;
+        margin-bottom: 2px;
+      }
+      .openclaw-timeline-text span {
+        font-size: 12px;
+        color: #5f6d6a;
+        line-height: 1.55;
+      }
+      .openclaw-output {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 14px;
+        border-radius: 12px;
+        background: rgba(255,255,255,0.68);
+        border: 1px solid rgba(26,20,16,0.08);
+      }
+      .openclaw-output strong {
+        display: block;
+        font-size: 14px;
+        color: #17322e;
+        margin-bottom: 4px;
+      }
+      .openclaw-output span {
+        display: block;
+        font-size: 12px;
+        color: #5f6d6a;
+      }
+      .openclaw-output-tag {
+        flex-shrink: 0;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(160,120,48,0.14);
+        color: #8a6322;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .command-window {
+        background: linear-gradient(180deg, #fdfcf9 0%, #f3f6f8 100%);
+      }
+      .command-body {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 18px;
+        background:
+          radial-gradient(circle at top right, rgba(55,107,156,0.12), transparent 34%),
+          linear-gradient(180deg, rgba(255,255,255,0.94), rgba(243,246,248,0.96));
+      }
+      .command-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .command-title-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .command-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #376b9c;
+      }
+      .command-kicker::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 35%, #d7e9fb, #376b9c);
+        box-shadow: 0 0 0 4px rgba(55,107,156,0.1);
+      }
+      .command-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #1c2f43;
+      }
+      .command-subtitle {
+        font-size: 12px;
+        color: #6c7a86;
+      }
+      .command-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(55,107,156,0.08);
+        color: #376b9c;
+        font-size: 11px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .command-status::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #376b9c;
+        box-shadow: 0 0 0 4px rgba(55,107,156,0.12);
+      }
+      .command-chip-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .command-chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 10px;
+        border-radius: 999px;
+        background: rgba(26,20,16,0.05);
+        color: #5f6870;
+        font-size: 11px;
+      }
+      .command-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .command-card {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        min-height: 206px;
+        padding: 16px;
+        border-radius: 16px;
+        background: rgba(255,255,255,0.84);
+        border: 1px solid rgba(26,20,16,0.08);
+        box-shadow: 0 10px 24px rgba(26,20,16,0.05);
+      }
+      .command-card.search {
+        background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(247,243,235,0.94));
+        border-color: rgba(160,120,48,0.16);
+      }
+      .command-card-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .command-card-type {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #376b9c;
+      }
+      .command-card.search .command-card-type {
+        color: #8a6322;
+      }
+      .command-card-badge {
+        padding: 4px 9px;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 700;
+        background: rgba(55,107,156,0.08);
+        color: #376b9c;
+      }
+      .command-card.search .command-card-badge {
+        background: rgba(160,120,48,0.12);
+        color: #8a6322;
+      }
+      .command-voice {
+        padding: 14px;
+        border-radius: 12px;
+        background: linear-gradient(180deg, rgba(245,249,253,0.96), rgba(255,255,255,0.98));
+        border: 1px solid rgba(55,107,156,0.12);
+        font-family: var(--serif);
+        font-size: 17px;
+        line-height: 1.55;
+        color: #223241;
+      }
+      .command-card.search .command-voice {
+        background: linear-gradient(180deg, rgba(252,249,241,0.98), rgba(255,255,255,0.98));
+        border-color: rgba(160,120,48,0.14);
+      }
+      .command-result {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .command-result-label {
+        font-size: 12px;
+        font-weight: 700;
+        color: #58708a;
+      }
+      .command-card.search .command-result-label {
+        color: #8a6322;
+      }
+      .command-code {
+        padding: 12px 14px;
+        border-radius: 12px;
+        background: #203041;
+        color: #e8f1f8;
+        font-family: Consolas, Monaco, monospace;
+        font-size: 12px;
+        line-height: 1.75;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+      }
+      .command-quote {
+        padding: 12px 14px;
+        border-radius: 12px;
+        background: rgba(160,120,48,0.08);
+        border-left: 3px solid rgba(160,120,48,0.36);
+        font-size: 14px;
+        line-height: 1.7;
+        color: #5a4a2a;
+      }
+      .command-quote strong {
+        display: block;
+        color: #2a241b;
+        margin-bottom: 2px;
+      }
+      .command-footer {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 14px;
+      }
+      .command-panel {
+        padding: 15px 16px;
+        border-radius: 16px;
+        background: rgba(255,255,255,0.72);
+        border: 1px solid rgba(26,20,16,0.08);
+      }
+      .command-panel-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: #376b9c;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .command-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .command-step {
+        display: grid;
+        grid-template-columns: 24px minmax(0, 1fr);
+        gap: 10px;
+        align-items: start;
+      }
+      .command-step-num {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(55,107,156,0.1);
+        color: #376b9c;
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .command-step-text strong {
+        display: block;
+        font-size: 13px;
+        color: #223241;
+        margin-bottom: 2px;
+      }
+      .command-step-text span {
+        font-size: 12px;
+        line-height: 1.55;
+        color: #677480;
+      }
+      .command-metrics {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .command-metric {
+        padding: 12px 13px;
+        border-radius: 12px;
+        background: rgba(55,107,156,0.06);
+        border: 1px solid rgba(55,107,156,0.1);
+      }
+      .command-metric-label {
+        font-size: 11px;
+        color: #5f6f7d;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .command-metric-value {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1c2f43;
+      }
+
       /* RESPONSIVE */
       @media (max-width: 1366px) and (min-width: 1201px) {
         :root {
@@ -1207,7 +1725,8 @@
         #recording .feat-wrap,
         #polish .feat-wrap,
         #command .feat-wrap,
-        #platform .feat-wrap {
+        #platform .feat-wrap,
+        #openclaw .feat-wrap {
           /* 给图片列更多空间 (62%)，防止被积压 */
           grid-template-columns: minmax(0, 1fr) minmax(420px, 62%);
         }
@@ -1257,6 +1776,7 @@
         #polish .style-demo,
         #command .app-window,
         #platform .app-window,
+        #openclaw .app-window,
         #yanmo .app-window,
         #history .app-window,
         #phrases .app-window {
@@ -1296,7 +1816,8 @@
         #recording .feat-wrap,
         #polish .feat-wrap,
         #command .feat-wrap,
-        #platform .feat-wrap {
+        #platform .feat-wrap,
+        #openclaw .feat-wrap {
           grid-template-columns: minmax(0, 1fr) minmax(360px, 50%);
         }
         #yanmo .feat-wrap.flip,
@@ -1341,7 +1862,8 @@
         #recording .feat-wrap,
         #polish .feat-wrap,
         #command .feat-wrap,
-        #platform .feat-wrap {
+        #platform .feat-wrap,
+        #openclaw .feat-wrap {
           grid-template-columns: minmax(0, 1fr) minmax(320px, 48%);
         }
         #yanmo .feat-wrap.flip,
@@ -1381,6 +1903,7 @@
         #yanmo .app-window,
         #phrases .app-window,
         #command .app-window,
+        #openclaw .app-window,
         #history .app-window {
           height: auto !important;
           min-height: 0;
@@ -1391,6 +1914,7 @@
         #yanmo .win-body,
         #phrases .win-body,
         #command .win-body,
+        #openclaw .win-body,
         #history .win-body {
           overflow-y: auto;
         }
@@ -1475,6 +1999,7 @@
         #yanmo .app-window,
         #phrases .app-window,
         #command .app-window,
+        #openclaw .app-window,
         #history .app-window {
           height: auto !important;
           max-height: 56vh;
@@ -1484,6 +2009,7 @@
         #yanmo .win-body,
         #phrases .win-body,
         #command .win-body,
+        #openclaw .win-body,
         #history .win-body {
           overflow-y: auto;
         }
@@ -1559,6 +2085,7 @@
         #yanmo .app-window,
         #phrases .app-window,
         #command .app-window,
+        #openclaw .app-window,
         #history .app-window {
           max-height: 50vh;
         }
@@ -3130,6 +3657,7 @@
         #yanmo .app-window,
         #phrases .app-window,
         #command .app-window,
+        #openclaw .app-window,
         #history .app-window {
           height: auto !important;
           min-height: 0;
@@ -3140,6 +3668,7 @@
         #yanmo .win-body,
         #phrases .win-body,
         #command .win-body,
+        #openclaw .win-body,
         #history .win-body {
           overflow-y: auto;
         }
@@ -3210,6 +3739,7 @@
       #command .container,
       #phrases .container,
       #platform .container,
+      #openclaw .container,
       #polish .container,
       #history .container,
       #faq .container,
@@ -3218,6 +3748,7 @@
       .overview-section,
       .vscode-ext-section,
       .overview-app-section,
+      #openclaw,
       #polish,
       #history,
       #faq { position: relative; overflow: hidden; }
@@ -3229,6 +3760,7 @@
         #polish .feat-wrap,
         #command .feat-wrap,
         #platform .feat-wrap,
+        #openclaw .feat-wrap,
         #yanmo .feat-wrap.flip,
         #history .feat-wrap.flip,
         #phrases .feat-wrap.flip {
@@ -3270,9 +3802,22 @@
         #history .app-window,
         #polish .style-demo,
         #command .app-window,
+        #openclaw .app-window,
         #phrases .app-window {
           max-width: 100%;
           width: 100%;
+        }
+
+        .openclaw-body {
+          grid-template-columns: 1fr;
+        }
+        .command-grid,
+        .command-footer {
+          grid-template-columns: 1fr;
+        }
+        .openclaw-flow,
+        .openclaw-grid {
+          grid-template-columns: 1fr;
         }
 
         .container {
@@ -3317,6 +3862,7 @@
           <li><a href="#overview">特色功能</a></li>
           <li><a href="#demo">应用演示</a></li>
           <li><a href="#recording">功能介绍</a></li>
+          <li><a href="#openclaw">OpenClaw</a></li>
           <li><a href="#faq">常见问题</a></li>
           <li><a href="#hero">下载</a></li>
         </ul>
@@ -4074,6 +4620,122 @@
         </div>
       </div>
     </section>
+    <!-- OpenClaw 支持 -->
+    <section class="feat-section" id="openclaw">
+      <div class="container">
+        <div class="feat-wrap">
+          <div class="feat-text reveal">
+            <span class="feat-tag">Agent 支持</span>
+            <h2 class="feat-title">支持接入 OpenClaw 等 Agent，<br />让言墨成为统一的语音入口。</h2>
+            <p class="feat-desc">言墨可以把语音识别、内容整理和上下文输入接到 OpenClaw 等多种 Agent 工作流里，让你用更自然的方式发起调用，而不是手工组织每一步。</p>
+            <ul class="feat-list">
+              <li>说话即可发起 Agent 指令，减少手工输入成本</li>
+              <li>识别结果可直接作为 OpenClaw 等 Agent 的上下文输入</li>
+              <li>在不同 Agent 工作流之间切换，仍保持同一套语音入口</li>
+            </ul>
+          </div>
+          <div class="feat-visual reveal">
+            <div class="app-window openclaw-window" style="height: 580px">
+              <div class="win-chrome">
+                <span class="wc-dot wc-r"></span><span class="wc-dot wc-y"></span><span class="wc-dot wc-g"></span>
+              </div>
+              <div class="win-body openclaw-body" style="flex:1;min-height:0;overflow:hidden;">
+                <div class="openclaw-column">
+                  <div class="openclaw-panel">
+                    <div class="openclaw-panel-title">
+                      <span>言墨采集工位</span>
+                      <span class="openclaw-pill">Voice to Data</span>
+                    </div>
+                    <div class="openclaw-input-card">
+                      <div class="openclaw-quote">“把今天这批客服录音整理成结构化摘要，并交给 OpenClaw 继续处理，保留行业术语和口语表达。”</div>
+                      <div class="openclaw-meta">
+                        <span class="openclaw-chip">实时转写</span>
+                        <span class="openclaw-chip">术语保留</span>
+                        <span class="openclaw-chip">自动分段</span>
+                      </div>
+                    </div>
+                    <div class="openclaw-grid" style="margin-top:12px;">
+                      <div class="openclaw-stat">
+                        <div class="openclaw-stat-label">输入来源</div>
+                        <div class="openclaw-stat-value">语音直采</div>
+                      </div>
+                      <div class="openclaw-stat">
+                        <div class="openclaw-stat-label">输出形式</div>
+                        <div class="openclaw-stat-value">上下文 / 指令</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="openclaw-panel">
+                    <div class="openclaw-panel-title">
+                      <span>接入流程</span>
+                      <span class="openclaw-pill" style="background:rgba(160,120,48,0.1);color:#8a6322;">Agent Ready</span>
+                    </div>
+                    <div class="openclaw-flow">
+                      <div class="openclaw-step">
+                        <div class="openclaw-step-label">01</div>
+                        <div class="openclaw-step-title">采集</div>
+                        <div class="openclaw-step-desc">用言墨边说边录，沉淀原始表达。</div>
+                      </div>
+                      <div class="openclaw-step">
+                        <div class="openclaw-step-label">02</div>
+                        <div class="openclaw-step-title">整理</div>
+                        <div class="openclaw-step-desc">自动切分意图、上下文和回复。</div>
+                      </div>
+                      <div class="openclaw-step">
+                        <div class="openclaw-step-label">03</div>
+                        <div class="openclaw-step-title">调用</div>
+                        <div class="openclaw-step-desc">送入 OpenClaw 或其他 Agent，继续完成后续任务。</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="openclaw-column">
+                  <div class="openclaw-train-card">
+                    <div class="openclaw-train-header">
+                      <div>
+                        <div class="openclaw-train-title">OpenClaw / Agent Workflow</div>
+                        <div class="openclaw-train-sub">言墨负责语音入口，Agent 负责后续处理与执行。</div>
+                      </div>
+                      <div class="openclaw-model-badge">🦞</div>
+                    </div>
+                    <div class="openclaw-timeline">
+                      <div class="openclaw-timeline-item">
+                        <div class="openclaw-timeline-dot"></div>
+                        <div class="openclaw-timeline-text">
+                          <strong>领域上下文沉淀</strong>
+                          <span>会议、客服、代码讲解、日常工作流都可以直接变成 Agent 可用的上下文。</span>
+                        </div>
+                      </div>
+                      <div class="openclaw-timeline-item">
+                        <div class="openclaw-timeline-dot"></div>
+                        <div class="openclaw-timeline-text">
+                          <strong>指令与输入生成</strong>
+                          <span>把自然口语整理成可供 Agent 使用的指令、摘要或上下文内容。</span>
+                        </div>
+                      </div>
+                      <div class="openclaw-timeline-item">
+                        <div class="openclaw-timeline-dot"></div>
+                        <div class="openclaw-timeline-text">
+                          <strong>结果回流当前工作流</strong>
+                          <span>Agent 的处理结果可以回到当前界面，继续编辑、检索或执行下一步。</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="openclaw-output">
+                      <div>
+                        <strong>最终效果</strong>
+                        <span>让言墨不只是输入工具，也成为连接 OpenClaw 等 Agent 的统一语音入口。</span>
+                      </div>
+                      <span class="openclaw-output-tag">统一入口</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- FEATURE 1.5 · 言墨智能增强 -->
     <section class="feat-section" id="yanmo">
       <!-- 千里江山·青绿山影（智能=山色郁葱） -->
@@ -4399,33 +5061,96 @@
             </ul>
           </div>
           <div class="feat-visual reveal">
-            <div class="app-window" style="height: 580px">
+            <div class="app-window command-window" style="height: 580px">
               <div class="win-chrome">
                 <span class="wc-dot wc-r"></span><span class="wc-dot wc-y"></span><span class="wc-dot wc-g"></span>
               </div>
-              <div class="win-body" style="flex:1;min-height:0;padding:24px 22px;display:flex;flex-direction:column;gap:18px;overflow-y:auto">
-                <div style="font-size:13px;color:var(--text-2);font-weight:600;text-transform:uppercase;letter-spacing:.08em">命令示例</div>
+              <div class="win-body command-body" style="flex:1;min-height:0;overflow-y:auto">
+                <div class="command-topbar">
+                  <div class="command-title-wrap">
+                    <div class="command-kicker">命令模式</div>
+                    <div class="command-title">一句话发出意图，结果直接落下</div>
+                    <div class="command-subtitle">识别语音后直接进入结构化执行，不必先想清楚关键词。</div>
+                  </div>
+                  <div class="command-status">实时理解中</div>
+                </div>
 
-                <!-- 示例 1：转表格 -->
-                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:18px 20px">
-                  <div style="font-size:13px;color:var(--text-2);margin-bottom:10px;font-weight:600">🎙 语音输入</div>
-                  <div style="font-size:14.5px;color:var(--text-1);margin-bottom:14px">"姓名张三年龄28职位工程师，帮我整理成表格"</div>
-                  <div style="font-size:13px;color:#7ee787;margin-bottom:8px;font-weight:600">⌘ 执行结果</div>
-                  <div style="font-family:monospace;font-size:13px;color:var(--text-1);line-height:1.8;background:rgba(0,0,0,0.3);border-radius:8px;padding:12px 14px">
-                    | 姓名 | 年龄 | 职位 |<br />
-                    |------|------|------|<br />
-                    | 张三 |  28   | 工程师 |
+                <div class="command-chip-row">
+                  <span class="command-chip">排版</span>
+                  <span class="command-chip">检索</span>
+                  <span class="command-chip">插入</span>
+                  <span class="command-chip">知识调用</span>
+                </div>
+
+                <div class="command-grid">
+                  <div class="command-card">
+                    <div class="command-card-head">
+                      <span class="command-card-type">表格整理</span>
+                      <span class="command-card-badge">Markdown</span>
+                    </div>
+                    <div class="command-voice">“姓名张三年龄 28 职位工程师，帮我整理成表格。”</div>
+                    <div class="command-result">
+                      <div class="command-result-label">执行结果</div>
+                      <div class="command-code">| 姓名 | 年龄 | 职位 |<br />|------|------|------|<br />| 张三 | 28 | 工程师 |</div>
+                    </div>
+                  </div>
+
+                  <div class="command-card search">
+                    <div class="command-card-head">
+                      <span class="command-card-type">知识检索</span>
+                      <span class="command-card-badge">诗句匹配</span>
+                    </div>
+                    <div class="command-voice">“查一句李白写月亮的诗。”</div>
+                    <div class="command-result">
+                      <div class="command-result-label">匹配结果</div>
+                      <div class="command-quote">
+                        <strong>举头望明月，低头思故乡。</strong>
+                        —— 李白《静夜思》
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <!-- 示例 2：检索诗词 -->
-                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:18px 20px">
-                  <div style="font-size:13px;color:var(--text-2);margin-bottom:10px;font-weight:600">🎙 语音输入</div>
-                  <div style="font-size:14.5px;color:var(--text-1);margin-bottom:14px">"查一句李白写月亮的诗"</div>
-                  <div style="font-size:13px;color:#7ee787;margin-bottom:8px;font-weight:600">⌘ 匹配结果</div>
-                  <div style="font-size:14.5px;color:#e8c97a;font-style:italic;padding:10px 14px;background:rgba(232,201,122,0.06);border-left:3px solid rgba(232,201,122,0.4);border-radius:0 8px 8px 0">
-                    举头望明月，低头思故乡。<br />
-                    <span style="font-size:13px;color:var(--text-2);font-style:normal">—— 李白《静夜思》</span>
+                <div class="command-footer">
+                  <div class="command-panel">
+                    <div class="command-panel-title">执行路径</div>
+                    <div class="command-steps">
+                      <div class="command-step">
+                        <div class="command-step-num">1</div>
+                        <div class="command-step-text">
+                          <strong>识别原话</strong>
+                          <span>先保留自然表达，不要求口播像写字一样规整。</span>
+                        </div>
+                      </div>
+                      <div class="command-step">
+                        <div class="command-step-num">2</div>
+                        <div class="command-step-text">
+                          <strong>判断意图</strong>
+                          <span>区分这是要整理、检索还是直接插入内容。</span>
+                        </div>
+                      </div>
+                      <div class="command-step">
+                        <div class="command-step-num">3</div>
+                        <div class="command-step-text">
+                          <strong>即时落地</strong>
+                          <span>把结果以最合适的格式写进当前编辑位置。</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="command-panel">
+                    <div class="command-panel-title">典型能力</div>
+                    <div class="command-metrics">
+                      <div class="command-metric">
+                        <div class="command-metric-label">支持格式</div>
+                        <div class="command-metric-value">表格 / 引文 / 文本</div>
+                      </div>
+                      <div class="command-metric">
+                        <div class="command-metric-label">输入习惯</div>
+                        <div class="command-metric-value">口语也能直接用</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
