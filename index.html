@@ -190,9 +190,11 @@
       #recording .feat-wrap,
       #polish .feat-wrap,
       #command .feat-wrap,
-      #platform .feat-wrap,
-      #openclaw .feat-wrap {
+      #platform .feat-wrap {
         grid-template-columns: minmax(0, 1fr) 680px;
+      }
+      #openclaw .feat-wrap {
+        grid-template-columns: minmax(0, 1.2fr) 560px;
       }
       #platform .feat-wrap {
         grid-template-columns: 420px 520px;
@@ -223,10 +225,13 @@
         max-width: 680px;
       }
       #polish .style-demo,
-      #command .app-window,
-      #openclaw .app-window {
+      #command .app-window {
         width: 100%;
         max-width: 780px;
+      }
+      #openclaw .app-window {
+        width: 100%;
+        max-width: 560px;
       }
       #recording {
         overflow: visible;
@@ -252,8 +257,7 @@
         max-width: 560px;
       }
       #yanmo .app-window,
-      #history .app-window,
-      #openclaw .app-window {
+      #history .app-window {
         width: 100%;
         max-width: 780px;
       }
@@ -1725,10 +1729,12 @@
         #recording .feat-wrap,
         #polish .feat-wrap,
         #command .feat-wrap,
-        #platform .feat-wrap,
-        #openclaw .feat-wrap {
+        #platform .feat-wrap {
           /* 给图片列更多空间 (62%)，防止被积压 */
           grid-template-columns: minmax(0, 1fr) minmax(420px, 62%);
+        }
+        #openclaw .feat-wrap {
+          grid-template-columns: minmax(0, 1fr) minmax(360px, 52%);
         }
         /* 针对 Visual 在左侧的布局（Yanmo, History, Phrases） */
         #yanmo .feat-wrap.flip,
@@ -1816,9 +1822,11 @@
         #recording .feat-wrap,
         #polish .feat-wrap,
         #command .feat-wrap,
-        #platform .feat-wrap,
-        #openclaw .feat-wrap {
+        #platform .feat-wrap {
           grid-template-columns: minmax(0, 1fr) minmax(360px, 50%);
+        }
+        #openclaw .feat-wrap {
+          grid-template-columns: minmax(0, 1fr) minmax(320px, 45%);
         }
         #yanmo .feat-wrap.flip,
         #history .feat-wrap.flip,
@@ -1862,9 +1870,11 @@
         #recording .feat-wrap,
         #polish .feat-wrap,
         #command .feat-wrap,
-        #platform .feat-wrap,
-        #openclaw .feat-wrap {
+        #platform .feat-wrap {
           grid-template-columns: minmax(0, 1fr) minmax(320px, 48%);
+        }
+        #openclaw .feat-wrap {
+          grid-template-columns: minmax(0, 1fr) minmax(280px, 42%);
         }
         #yanmo .feat-wrap.flip,
         #history .feat-wrap.flip,
@@ -3862,7 +3872,7 @@
           <li><a href="#overview">特色功能</a></li>
           <li><a href="#demo">应用演示</a></li>
           <li><a href="#recording">功能介绍</a></li>
-          <li><a href="#openclaw">Agent支持</a></li>
+          <li><a href="#openclaw">OpenClaw支持</a></li>
           <li><a href="#faq">常见问题</a></li>
           <li><a href="#hero">下载</a></li>
         </ul>
@@ -4626,8 +4636,8 @@
         <div class="feat-wrap">
           <div class="feat-text reveal">
             <span class="feat-tag">Agent 支持</span>
-            <h2 class="feat-title">支持接入 OpenClaw 等 Agent，<br />让言墨成为统一的语音入口。</h2>
-            <p class="feat-desc">言墨可以把语音识别、内容整理和上下文输入接到 OpenClaw 等多种 Agent 工作流里，让你用更自然的方式发起调用，而不是手工组织每一步。</p>
+            <h2 class="feat-title">支持接入 OpenClaw 等 Agent，<br />让言墨成为统一的入口。</h2>
+            <p class="feat-desc">言墨可以把语音识别、内容整理和上下文输入接到 OpenClaw 等多种 Agent 工作流里，让你用更自然的方式发起调用。</p>
             <ul class="feat-list">
               <li>说话即可发起 Agent 指令，减少手工输入成本</li>
               <li>识别结果可直接作为 OpenClaw 等 Agent 的上下文输入</li>
